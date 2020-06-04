@@ -2,16 +2,20 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import DiscreteSlider from './DiscreteSlider';
+import VectionSlider from './component/VectionSlider';
+import VideoRenderer from './component/VideoRenderer';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
       <div>
-        <DiscreteSlider />
+        <VideoRenderer />
       </div>
-        <img src={logo} className="App-logo" alt="logo" />
+      <div>
+        <VectionSlider />
+      </div>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
