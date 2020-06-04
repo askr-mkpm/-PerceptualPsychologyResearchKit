@@ -4,11 +4,15 @@ import './App.css';
 
 import VectionSlider from './component/VectionSlider';
 import VideoRenderer from './component/VideoRenderer';
+import ExpTitle from './component/ExpTitle';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <div>
+          <ExpTitle />
+        </div>
       <div>
         <VideoRenderer />
       </div>
