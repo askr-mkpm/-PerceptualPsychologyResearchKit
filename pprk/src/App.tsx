@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.scss';
 
 import VectionSlider from './component/VectionSlider';
@@ -17,43 +16,37 @@ import VectionExport from './component/VectionExport';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <div>
-          <ExpTitle />
-        </div>
-      <div>
-        <VideoRenderer />
-      </div>
-      <div>
-        <VideoNum />
-        <UrlInput />
-        <RepeatNum />
-      </div>
-      <div>
-        <StartButton />
-        <StopButton />
-      </div>
-      <div>
-        <VectionButton />
-        <VectionSlider />
-      </div>
-      <div>
-        <VectionAdress />
-        <VectionExport />
-      </div>
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        PerceptualPsychologyResearchKit(beta)
       </header>
+      <div className="bg">
+        <main>
+          <div>
+            <VideoRenderer />
+          </div>
+          <div>
+            <ExpTitle />
+            <VideoNum />
+            <UrlInput />
+            <RepeatNum />
+          </div>
+          <div>
+            <StartButton />
+            <StopButton />
+          </div>
+          <div>
+            <VectionButton />
+            <VectionSlider />
+          </div>
+          <div>
+            <VectionAdress />
+            <VectionExport />
+          </div>
+        </main>
+      </div>
+      <footer>
+        copylight. null
+      </footer>
     </div>
   );
 }
