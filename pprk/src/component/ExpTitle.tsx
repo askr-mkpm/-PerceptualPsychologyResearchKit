@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
             width: '25ch',
             },
-        },
+        }
     }),
 );
 
@@ -21,8 +21,6 @@ const ExpTitle: React.FC = () =>
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
-            {/* <TextField id="standard-basic" label="Standard" />
-            <TextField id="filled-basic" label="Filled" variant="filled" /> */}
             <TextField id="outlined-basic" label="ExperimentTitle" variant="outlined" />
         </form>
     )
