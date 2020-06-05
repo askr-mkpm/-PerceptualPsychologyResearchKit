@@ -7,6 +7,9 @@ import VideoRenderer from './component/VideoRenderer';
 import ExpTitle from './component/ExpTitle';
 import VideoNum from './component/VideoNum';
 import UrlInput from './component/UrlInput';
+import RepeatNum from './component/RepeatNum';
+import StartButton from './component/StartButton';
+import StopButton from './component/StopButton';
 
 function App() {
   return (
@@ -21,6 +24,11 @@ function App() {
       <div>
         <VideoNum />
         <UrlInput />
+        <RepeatNum />
+      </div>
+      <div>
+        <StartButton />
+        <StopButton />
       </div>
       <div>
         <VectionSlider />
