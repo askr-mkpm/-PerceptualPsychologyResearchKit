@@ -7,6 +7,7 @@ import ExpTitle from './component/ExpTitle';
 import VideoNum from './component/VideoNum';
 import UrlInput from './component/UrlInput';
 import RepeatNum from './component/RepeatNum';
+import CreateVideoList from './component/CreateVideoList';
 import StartButton from './component/StartButton';
 import StopButton from './component/StopButton';
 import VectionButton from './component/VectionButton';
@@ -29,6 +30,7 @@ function App() {
             <VideoNum />
             <UrlInput />
             <RepeatNum />
+            <CreateVideoList />
           </div>
           <div>
             <StartButton />
