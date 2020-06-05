@@ -10,6 +10,9 @@ import UrlInput from './component/UrlInput';
 import RepeatNum from './component/RepeatNum';
 import StartButton from './component/StartButton';
 import StopButton from './component/StopButton';
+import VectionButton from './component/VectionButton';
+import VectionAdress from './component/VectionAdress';
+import VectionExport from './component/VectionExport';
 
 function App() {
   return (
@@ -31,7 +34,12 @@ function App() {
         <StopButton />
       </div>
       <div>
+        <VectionButton />
         <VectionSlider />
+      </div>
+      <div>
+        <VectionAdress />
+        <VectionExport />
       </div>
         {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <p>

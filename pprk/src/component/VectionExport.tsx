@@ -14,17 +14,15 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const StopButton: React.FC = () =>
+const VectionExport: React.FC = () =>
 {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-        <Button variant="contained" color="secondary">
-            Stop
-        </Button>
+            <Button variant="contained">Export</Button>
         </div>
     );
 }
 
-export default StopButton;
+export default VectionExport;
