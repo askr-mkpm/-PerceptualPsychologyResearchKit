@@ -15,7 +15,12 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const VideoNum: React.FC = () =>
+interface Props
+{
+    videoNum: number;
+}
+
+const VideoNum: React.FC<Props> = props =>
 {
     const classes = useStyles();
 
@@ -25,6 +30,7 @@ const VideoNum: React.FC = () =>
             <TextField
             id="filled-number"
             label="VideoNum"
+            value = {props.videoNum}
             type="number"
             InputLabelProps={{
                 shrink: true,
