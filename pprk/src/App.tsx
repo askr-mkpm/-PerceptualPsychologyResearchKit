@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
 import VectionSlider from './component/VectionSlider';
 import VideoRenderer from './component/VideoRenderer';
