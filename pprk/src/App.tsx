@@ -6,6 +6,7 @@ import VectionSlider from './component/VectionSlider';
 import VideoRenderer from './component/VideoRenderer';
 import ExpTitle from './component/ExpTitle';
 import VideoNum from './component/VideoNum';
+import UrlInput from './component/UrlInput';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       </div>
       <div>
         <VideoNum />
+        <UrlInput />
       </div>
       <div>
         <VectionSlider />
