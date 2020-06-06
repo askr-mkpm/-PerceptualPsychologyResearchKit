@@ -1,8 +1,9 @@
 //https://material-ui.com/components/text-fields/
 
-import React from 'react';
+import React, { useState }from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -15,14 +16,17 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-interface Props
-{
-    videoNum: number;
-}
-
-const VideoNum: React.FC<Props> = props =>
+const VideoNum: React.FC = () =>
 {
     const classes = useStyles();
+    const [numValue, setNumValue] = useState(0)
+
+    const handleNumValue = (event: React.ChangeEvent<HTMLInputElement>): void =>
+    {
+        const value: number = Number(event.target.value);
+        setNumValue(value);
+        console.log(value);
+    }
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
@@ -30,8 +34,9 @@ const VideoNum: React.FC<Props> = props =>
             <TextField
             id="filled-number"
             label="VideoNum"
-            value = {props.videoNum}
             type="number"
+            value = {numValue}
+            onChange = {handleNumValue}
             InputLabelProps={{
                 shrink: true,
             }}
