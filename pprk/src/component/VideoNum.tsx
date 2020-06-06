@@ -7,12 +7,18 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        videoNum: {
             '& .MuiTextField-root': {
             margin: theme.spacing(1),
             width: '25ch',
             },
         },
+        urlInput: {
+            '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+            },
+        }
     }),
 );
 
@@ -29,19 +35,22 @@ const VideoNum: React.FC = () =>
     }
 
     return (
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={classes.videoNum} noValidate autoComplete="off">
         <div>
             <TextField
-            id="filled-number"
-            label="VideoNum"
-            type="number"
-            value = {numValue}
-            onChange = {handleNumValue}
-            InputLabelProps={{
-                shrink: true,
-            }}
-            variant="filled"
+                id="filled-number"
+                label="VideoNum"
+                type="number"
+                value = {numValue}
+                onChange = {handleNumValue}
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                variant="filled"
             />
+            <form className={classes.urlInput} noValidate autoComplete="off">
+                <TextField id="outlined-basic" label="URL" variant="outlined" />
+            </form>
         </div>
         </form>
     );
