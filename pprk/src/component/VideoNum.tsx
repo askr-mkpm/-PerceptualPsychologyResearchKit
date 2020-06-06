@@ -49,7 +49,13 @@ const VideoNum: React.FC = () =>
                 variant="filled"
             />
             <form className={classes.urlInput} noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="URL" variant="outlined" />
+                <TextField 
+                    id="outlined-basic"
+                    label="URL"
+                    variant="outlined" 
+                    // multiLine={true}
+                    rows={2}
+                />
             </form>
         </div>
         </form>
