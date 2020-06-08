@@ -4,7 +4,7 @@ import './App.scss';
 import VectionSlider from './component/VectionSlider';
 import VideoRenderer from './component/VideoRenderer';
 import ExpTitle from './component/ExpTitle';
-import VideoNum from './component/VideoNum';
+// import VideoNum from './component/VideoNum';
 // import UrlInput from './component/UrlInput';
 import RepeatNum from './component/RepeatNum';
 import CreateVideoList from './component/CreateVideoList';
@@ -23,11 +23,11 @@ function App() {
       <div className="bg">
         <main>
           <div>
-            <VideoRenderer />
+            {/* <VideoRenderer /> */}
           </div>
           <div>
             <ExpTitle />
-            <VideoNum />
+            {/* <VideoNum /> */}
             {/* <UrlInput /> */}
             <RepeatNum />
             <CreateVideoList />
