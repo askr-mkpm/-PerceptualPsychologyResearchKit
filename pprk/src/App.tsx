@@ -13,6 +13,7 @@ import StopButton from './component/StopButton';
 import VectionButton from './component/VectionButton';
 import VectionAdress from './component/VectionAdress';
 import VectionExport from './component/VectionExport';
+import VideoList from './component/VideoList';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <ExpTitle />
             {/* <VideoNum /> */}
             {/* <UrlInput /> */}
+            <VideoList />
             <RepeatNum />
             <CreateVideoList />
           </div>

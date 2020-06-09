@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const VideoForm: React.FC = (props: any) =>{
+const VideoForm: React.FC<{props: any}> = ({props}) =>{
     const classes = useStyles();
     const [videoUrl, setVideoUrl] = useState<string>("");
 

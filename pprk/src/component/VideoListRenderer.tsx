@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const VideoListRenderer: React.FC = (props: any) =>{
+const VideoListRenderer: React.FC<{props: any}> = ({props}) =>{
     const classes = useStyles();
 
     const videoListItems = props.list.map(
