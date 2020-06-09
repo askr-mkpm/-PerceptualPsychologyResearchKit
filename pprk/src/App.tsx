@@ -24,7 +24,7 @@ function App() {
       <div className="bg">
         <main>
           <div>
-            {/* <VideoRenderer /> */}
+            <VideoRenderer />
           </div>
           <div>
             <ExpTitle />
