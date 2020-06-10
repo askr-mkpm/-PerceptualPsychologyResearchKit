@@ -1,10 +1,15 @@
 import React from 'react'
 import ReactPlayer from 'react-player'
 
+interface IItem {
+    id: number;
+    name: string;
+}
+
 const VideoRenderer: React.FC = () =>
 {
-    const [inputUrl, setinputUrl] = React.useState<string>("https://youtu.be/Kpm1l0HfkV0");
-    const [videoList, setVideoList] = React.useState<string[]>(["https://youtu.be/nO9aot9RgQc"])
+    const [inputUrl, setinputUrl] = React.useState<string>("https://youtu.be/nO9aot9RgQc");
+    const [videoList, setVideoList] = React.useState<IItem[]>([{id: 1, name: "https://youtu.be/Kpm1l0HfkV0"},{id: 2, name: "https://youtu.be/nO9aot9RgQc"}])
     const [playBool, setPlayBool] = React.useState<boolean>(true);
 
     const handlePauseBool = (e: React.FormEvent<HTMLButtonElement>) => 
@@ -19,7 +24,8 @@ const VideoRenderer: React.FC = () =>
 
     const handleInputUrl = (e: React.FormEvent<HTMLButtonElement>) => 
     {
-        setinputUrl("https://youtu.be/nO9aot9RgQc");
+        let value: any = videoList.find(({id}) => id === 1)?.name;
+        setinputUrl(value);
     }
 
     // https://youtu.be/nO9aot9RgQc
