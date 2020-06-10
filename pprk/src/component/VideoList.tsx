@@ -49,11 +49,21 @@ const VideoList: React.FC = () =>
     const [items, setItems] = React.useState<IItem[]>([]);
     const [repeatNum, setRepeatNum] = React.useState<number>(0);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleItems = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setItems([...items, { id: items.length + 1, name: text }]);
+
+        for(let i = 0; i < 2; i++)
+        {
+        setItemFunction();
+        }
         setText("");
     };
+
+    const setItemFunction = () =>
+    {
+        setItems([...items, { id: items.length + 1, name: text }]);
+        //forloopはしてるけどうまいとこ関数が叩けていない
+    }
 
     const handleRepeatNum = (event: React.ChangeEvent<HTMLInputElement>): void =>
     {
@@ -63,15 +73,11 @@ const VideoList: React.FC = () =>
 
     const handleList = (e: React.FormEvent<HTMLButtonElement>) => 
     {
-        for(let i = 0; i < repeatNum; i++)
-        {
-            console.log(items);
-        }
-        //ここからlistをrepeatnumの数ランダムにならびかえたい
+        console.log(items);
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleItems}>
         <input value={text} onChange={e => setText(e.target.value)} />
         <button>Add</button>
         {items.map((item: IItem) => <p>{item.name}</p>)}

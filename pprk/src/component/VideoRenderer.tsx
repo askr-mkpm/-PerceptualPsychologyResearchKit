@@ -25,6 +25,7 @@ const VideoRenderer: React.FC = () =>
     const handleInputUrl = (e: React.FormEvent<HTMLButtonElement>) => 
     {
         let value: any = videoList.find(({id}) => id === 1)?.name;
+        //stateでidかえれば順番に再生できる callbackとあわせて
         setinputUrl(value);
     }
 
