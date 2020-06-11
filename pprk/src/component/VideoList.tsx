@@ -19,6 +19,7 @@ const VideoList: React.FC = () =>
     const [repeatNum, setRepeatNum] = React.useState<number>(0);
     const [playBool, setPlayBool] = React.useState<boolean>(false);
     const [videoUrl, setVideoUrl] = React.useState<string>("");
+    const [controlId, setControlId] = React.useState<number>(0);
     let listId: number[] = [];
 
     const handleItems = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -76,17 +77,67 @@ const VideoList: React.FC = () =>
 
     const handlevideoUrl = (e: React.FormEvent<HTMLButtonElement>) => 
     {
-        let inputId: number = listId[0];
+        e.preventDefault();
+        let cid: number = controlId;
+        let inputId: number = listId[cid];
         let value: any = videoList.find(({id}) => id === inputId)?.name;
-        //stateでidかえれば順番に再生できる callbackとあわせて
+        
+        console.log(cid);
         setVideoUrl(value);
     }
+
+    const setVideoUrlformList = () =>
+    {
+        let cid: number = controlId+1;
+        let inputId: number = listId[cid];
+        let value: any = videoList.find(({id}) => id === inputId)?.name;
+        
+        console.log(cid);
+
+        //リストが終了したらurlを空にする
+        if(cid == listId.length)
+        {
+            value = "";
+        }
+
+        setVideoUrl(value);
+    }
+
+    const handleIncreControlId = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        e.preventDefault();
+
+        let coid: number = controlId+1;
+        setControlId(coid);
+        console.log(coid);
+        //nextおしただんかいでsetvideourlもするのだよ
+        setVideoUrlformList();
+    }
+
+    // const handleIncreControlId_ended = (e: any) => 
+    // {
+    //     let cid: number = 0;
+    //     cid = cid + 1;
+    //     setControlId(cid);
+    // }
+
+    const handleDecreControlId = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        let coid: number = controlId-1;
+        if(coid <= -1) coid = 0;
+        setControlId(coid);
+
+        setVideoUrlformList();
+    }
+
     return (
         <div>
             <ReactPlayer url={videoUrl} playing={playBool} />
             <button onClick={handlevideoUrl}>inputList to player</button>
             <button onClick={handlePauseBool}>pause</button>
             <button onClick={handlePlayBool}>play</button>
+            <button onClick={handleIncreControlId}>next</button>
+            <button onClick={handleDecreControlId}>back</button>
 
             <input value={inputUrl} onChange={e => setInpurUrl(e.target.value)} />
             <button onClick={handleItems}>Add</button>
