@@ -106,11 +106,12 @@ const VideoList: React.FC = () =>
         }
 
         setVideoUrl(value);
+        setPlayBool(true);
     }
 
-    const handleIncreControlId = (e: React.FormEvent<HTMLButtonElement>) => 
+    const handleIncreControlId = () => 
     {
-        e.preventDefault();
+        // e.preventDefault();
 
         let coid: number = controlId+1;
         setControlId(coid);
@@ -137,12 +138,12 @@ const VideoList: React.FC = () =>
 
     return (
         <div>
-            <ReactPlayer url={videoUrl} playing={playBool} />
+            <ReactPlayer url={videoUrl} playing={playBool} onEnded={handleIncreControlId}/>
             <button onClick={handlevideoUrl}>inputList to player</button>
             <button onClick={handlePauseBool}>pause</button>
             <button onClick={handlePlayBool}>play</button>
-            <button onClick={handleIncreControlId}>next</button>
-            <button onClick={handleDecreControlId}>back</button>
+            {/* <button onClick={handleIncreControlId}>next</button> */}
+            {/* <button onClick={handleDecreControlId}>back</button> */}
 
             <input value={inputUrl} onChange={e => setInpurUrl(e.target.value)} />
             <button onClick={handleItems}>Add</button>
