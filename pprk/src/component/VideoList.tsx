@@ -7,6 +7,27 @@ import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
 
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        urlInput: {
+            '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+            },
+        },
+        stdButton: {
+            '& > *': {
+                margin: theme.spacing(1),
+            },
+        },
+        repNum: {
+            '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: '25ch',
+            },
+        },
+    }),
+);
 interface IItem {
     id: number;
     name: string;
@@ -14,6 +35,7 @@ interface IItem {
 
 const VideoList: React.FC = () =>
 {
+    const classes = useStyles();
     const [inputUrl, setInpurUrl] = React.useState<string>("");
     const [videoList, setVideolist] = React.useState<IItem[]>([]);
     const [repeatNum, setRepeatNum] = React.useState<number>(0);
@@ -22,7 +44,7 @@ const VideoList: React.FC = () =>
     const [controlId, setControlId] = React.useState<number>(0);
     const [listId, setListId] = React.useState<number[]>([]);
 
-    const handleItems = (e: React.FormEvent<HTMLButtonElement>) => {
+    const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         setVideolist([...videoList, { id: videoList.length + 1, name: inputUrl }]);
@@ -35,7 +57,7 @@ const VideoList: React.FC = () =>
         setRepeatNum(value);
     }
 
-    const handleList = (e: React.FormEvent<HTMLButtonElement>) => 
+    const createList = (e: React.FormEvent<HTMLButtonElement>) => 
     {
         e.preventDefault();
 
@@ -51,7 +73,19 @@ const VideoList: React.FC = () =>
         console.log(_listId);//再生リストをidで指定してランダム順にしている
         console.log(videoList);
         setListId(_listId);
+    }
+
+    const initialSetUrlToRender = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        e.preventDefault();
+        let cid: number = controlId;
+        let inputId: number = listId[cid];
+        let value: any = videoList.find(({id}) => id === inputId)?.name;
+
+        console.log("inputid:"+listId[cid]);
         
+        console.log(cid);
+        setVideoUrl(value);
     }
 
     //ref: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -78,20 +112,7 @@ const VideoList: React.FC = () =>
         setPlayBool(true);
     }
 
-    const handlevideoUrl = (e: React.FormEvent<HTMLButtonElement>) => 
-    {
-        e.preventDefault();
-        let cid: number = controlId;
-        let inputId: number = listId[cid];
-        let value: any = videoList.find(({id}) => id === inputId)?.name;
-
-        console.log("inputid:"+listId[cid]);
-        
-        console.log(cid);
-        setVideoUrl(value);
-    }
-
-    const setVideoUrlformList = () =>
+    const setVideoUrlFromList = () =>
     {
         let cid: number = controlId+1;
         let inputId: number = listId[cid];
@@ -117,41 +138,71 @@ const VideoList: React.FC = () =>
         setControlId(coid);
         console.log(coid);
         //nextおしただんかいでsetvideourlもするのだよ
-        setVideoUrlformList();
-    }
-
-    // const handleIncreControlId_ended = (e: any) => 
-    // {
-    //     let cid: number = 0;
-    //     cid = cid + 1;
-    //     setControlId(cid);
-    // }
-
-    const handleDecreControlId = (e: React.FormEvent<HTMLButtonElement>) => 
-    {
-        let coid: number = controlId-1;
-        if(coid <= -1) coid = 0;
-        setControlId(coid);
-
-        setVideoUrlformList();
+        setVideoUrlFromList();
     }
 
     return (
         <div>
-            <ReactPlayer url={videoUrl} playing={playBool} onEnded={handleIncreControlId}/>
-            <button onClick={handlevideoUrl}>inputList to player</button>
-            <button onClick={handlePauseBool}>pause</button>
-            <button onClick={handlePlayBool}>play</button>
-            {/* <button onClick={handleIncreControlId}>next</button> */}
-            {/* <button onClick={handleDecreControlId}>back</button> */}
+            <form className={classes.urlInput} noValidate autoComplete="off">
+                <TextField 
+                    id="outlined-basic"
+                    label="URL"
+                    variant="outlined" 
+                    value={inputUrl}
+                    onChange={e => setInpurUrl(e.target.value)}
+                />
+            </form>
 
-            <input value={inputUrl} onChange={e => setInpurUrl(e.target.value)} />
-            <button onClick={handleItems}>Add</button>
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="secondary" onClick={addUrlToList}>
+                    AddUrlToList
+                </Button>
+            </div>
 
             {videoList.map((item: IItem) => <p>{item.name}</p>)}
 
-            <input value={repeatNum} onChange = {handleRepeatNum} />
-            <button onClick={handleList}>createList</button>
+            <form className={classes.repNum} noValidate autoComplete="off">
+                <TextField
+                id="filled-number"
+                label="RepeatNum"
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+                variant="filled"
+                value={repeatNum}
+                onChange = {handleRepeatNum}
+                />
+            </form>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" onClick={createList}>
+                    CreateList
+                </Button>
+            </div>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
+                    LaunchPlayer
+                </Button>
+            </div>
+
+            <ReactPlayer url={videoUrl} playing={playBool} onEnded={handleIncreControlId}/>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={handlePlayBool}>
+                    play
+                </Button>
+            </div>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="secondary" onClick={handlePauseBool}>
+                    pause
+                </Button>
+            </div>
+            
+            {/* <button onClick={handleIncreControlId}>next</button> */}
+            {/* <button onClick={handleDecreControlId}>back</button> */}
         </div>
     );
 };

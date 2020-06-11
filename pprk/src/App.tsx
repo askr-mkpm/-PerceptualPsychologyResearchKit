@@ -43,7 +43,7 @@ function App() {
             <VectionSlider />
           </div>
           <div>
-            <VectionAdress />
+            {/* <VectionAdress /> */}
             <VectionExport />
           </div>
         </main>
