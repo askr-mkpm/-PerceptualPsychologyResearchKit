@@ -52,18 +52,9 @@ const VideoList: React.FC = () =>
     const handleItems = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        for(let i = 0; i < 2; i++)
-        {
-        setItemFunction();
-        }
+        setItems([...items, { id: items.length + 1, name: text }]);
         setText("");
     };
-
-    const setItemFunction = () =>
-    {
-        setItems([...items, { id: items.length + 1, name: text }]);
-        //forloopはしてるけどうまいとこ関数が叩けていない
-    }
 
     const handleRepeatNum = (event: React.ChangeEvent<HTMLInputElement>): void =>
     {
@@ -73,7 +64,33 @@ const VideoList: React.FC = () =>
 
     const handleList = (e: React.FormEvent<HTMLButtonElement>) => 
     {
+        e.preventDefault();
+
+        let id: number[] = [];
+        for(let i = 0; i < items.length; i++)
+        {
+            for(let j = 0; j < repeatNum; j++)
+            {
+                id.push(i+1);
+            }
+        }
+        id = shuffleArray(id);
+        console.log(id);//再生リストをidで指定してランダム順にしている
         console.log(items);
+    }
+
+    //ref: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    const shuffleArray = (array: number[]) =>
+    {
+        const outArray = Array.from(array);
+        for (let i = outArray.length - 1; i > 0; i--) 
+        {
+            const r = Math.floor(Math.random() * (i + 1));
+            const tmp = outArray[i];
+            outArray[i] = outArray[r];
+            outArray[r] = tmp;
+        }
+        return outArray;
     }
 
     return (
