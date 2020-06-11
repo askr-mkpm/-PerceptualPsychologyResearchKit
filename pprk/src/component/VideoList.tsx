@@ -20,7 +20,7 @@ const VideoList: React.FC = () =>
     const [playBool, setPlayBool] = React.useState<boolean>(false);
     const [videoUrl, setVideoUrl] = React.useState<string>("");
     const [controlId, setControlId] = React.useState<number>(0);
-    let listId: number[] = [];
+    const [listId, setListId] = React.useState<number[]>([]);
 
     const handleItems = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -39,16 +39,19 @@ const VideoList: React.FC = () =>
     {
         e.preventDefault();
 
+        let _listId: number[] = [];
         for(let i = 0; i < videoList.length; i++)
         {
             for(let j = 0; j < repeatNum; j++)
             {
-                listId.push(i+1);
+                _listId.push(i+1);
             }
         }
-        listId = shuffleArray(listId);
-        console.log(listId);//再生リストをidで指定してランダム順にしている
+        _listId = shuffleArray(_listId);
+        console.log(_listId);//再生リストをidで指定してランダム順にしている
         console.log(videoList);
+        setListId(_listId);
+        
     }
 
     //ref: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -81,6 +84,8 @@ const VideoList: React.FC = () =>
         let cid: number = controlId;
         let inputId: number = listId[cid];
         let value: any = videoList.find(({id}) => id === inputId)?.name;
+
+        console.log("inputid:"+listId[cid]);
         
         console.log(cid);
         setVideoUrl(value);
@@ -92,7 +97,7 @@ const VideoList: React.FC = () =>
         let inputId: number = listId[cid];
         let value: any = videoList.find(({id}) => id === inputId)?.name;
         
-        console.log(cid);
+        console.log("inputid:"+listId[cid]);
 
         //リストが終了したらurlを空にする
         if(cid == listId.length)
