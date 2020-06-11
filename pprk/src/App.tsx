@@ -24,19 +24,19 @@ function App() {
       <div className="bg">
         <main>
           <div>
-            <VideoRenderer />
+            {/* <VideoRenderer /> */}
           </div>
           <div>
             <ExpTitle />
             {/* <VideoNum /> */}
             {/* <UrlInput /> */}
             <VideoList />
-            <RepeatNum />
-            <CreateVideoList />
+            {/* <RepeatNum /> */}
+            {/* <CreateVideoList /> */}
           </div>
           <div>
-            <StartButton />
-            <StopButton />
+            {/* <StartButton />
+            <StopButton /> */}
           </div>
           <div>
             <VectionButton />

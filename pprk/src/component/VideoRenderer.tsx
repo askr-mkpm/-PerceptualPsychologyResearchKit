@@ -10,7 +10,7 @@ const VideoRenderer: React.FC = () =>
 {
     const [inputUrl, setinputUrl] = React.useState<string>("https://youtu.be/nO9aot9RgQc");
     const [videoList, setVideoList] = React.useState<IItem[]>([{id: 1, name: "https://youtu.be/Kpm1l0HfkV0"},{id: 2, name: "https://youtu.be/nO9aot9RgQc"}])
-    const [playBool, setPlayBool] = React.useState<boolean>(true);
+    const [playBool, setPlayBool] = React.useState<boolean>(false);
 
     const handlePauseBool = (e: React.FormEvent<HTMLButtonElement>) => 
     {

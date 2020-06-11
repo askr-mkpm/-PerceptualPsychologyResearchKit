@@ -7,37 +7,6 @@ import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
 
-// import VideoForm from './VideoForm';
-// import VideoListRenderer from './VideoListRenderer';
-
-// type VideoListProps = Partial<{
-//     add: string
-//     list: string[]
-//     delete: string
-// }>
-
-// const VideoList: React.FC<VideoListProps> = props =>
-// {
-//     const [videoList, setVideoList] = useState([]);
-
-//     const addVideoList = (url: any) =>
-//     {
-//         setVideoList(videoList.concat(url));
-//     }
-
-//     const deleteVideoList = (index: any) =>
-//     {
-//         setVideoList(videoList.filter(item => videoList[index] !== item));
-//     } 
-
-//     return(
-//         <div>
-//             <VideoForm add />
-//             {/* <VideoListRenderer props={props}/> */}
-//         </div>
-//     );
-// }
-
 interface IItem {
     id: number;
     name: string;
@@ -45,15 +14,18 @@ interface IItem {
 
 const VideoList: React.FC = () =>
 {
-    const [text, setText] = React.useState<string>("");
-    const [items, setItems] = React.useState<IItem[]>([]);
+    const [inputUrl, setInpurUrl] = React.useState<string>("");
+    const [videoList, setVideolist] = React.useState<IItem[]>([]);
     const [repeatNum, setRepeatNum] = React.useState<number>(0);
+    const [playBool, setPlayBool] = React.useState<boolean>(false);
+    const [videoUrl, setVideoUrl] = React.useState<string>("");
+    let listId: number[] = [];
 
-    const handleItems = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleItems = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
-        setItems([...items, { id: items.length + 1, name: text }]);
-        setText("");
+        setVideolist([...videoList, { id: videoList.length + 1, name: inputUrl }]);
+        setInpurUrl("");
     };
 
     const handleRepeatNum = (event: React.ChangeEvent<HTMLInputElement>): void =>
@@ -66,17 +38,16 @@ const VideoList: React.FC = () =>
     {
         e.preventDefault();
 
-        let id: number[] = [];
-        for(let i = 0; i < items.length; i++)
+        for(let i = 0; i < videoList.length; i++)
         {
             for(let j = 0; j < repeatNum; j++)
             {
-                id.push(i+1);
+                listId.push(i+1);
             }
         }
-        id = shuffleArray(id);
-        console.log(id);//再生リストをidで指定してランダム順にしている
-        console.log(items);
+        listId = shuffleArray(listId);
+        console.log(listId);//再生リストをidで指定してランダム順にしている
+        console.log(videoList);
     }
 
     //ref: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
@@ -93,14 +64,38 @@ const VideoList: React.FC = () =>
         return outArray;
     }
 
+    const handlePauseBool = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        setPlayBool(false);
+    }
+
+    const handlePlayBool = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        setPlayBool(true);
+    }
+
+    const handlevideoUrl = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        let inputId: number = listId[0];
+        let value: any = videoList.find(({id}) => id === inputId)?.name;
+        //stateでidかえれば順番に再生できる callbackとあわせて
+        setVideoUrl(value);
+    }
     return (
-        <form onSubmit={handleItems}>
-        <input value={text} onChange={e => setText(e.target.value)} />
-        <button>Add</button>
-        {items.map((item: IItem) => <p>{item.name}</p>)}
-        <input value={repeatNum} onChange = {handleRepeatNum} />
-        <button onClick={handleList}>createList</button>
-        </form>
+        <div>
+            <ReactPlayer url={videoUrl} playing={playBool} />
+            <button onClick={handlevideoUrl}>inputList to player</button>
+            <button onClick={handlePauseBool}>pause</button>
+            <button onClick={handlePlayBool}>play</button>
+
+            <input value={inputUrl} onChange={e => setInpurUrl(e.target.value)} />
+            <button onClick={handleItems}>Add</button>
+
+            {videoList.map((item: IItem) => <p>{item.name}</p>)}
+
+            <input value={repeatNum} onChange = {handleRepeatNum} />
+            <button onClick={handleList}>createList</button>
+        </div>
     );
 };
 
