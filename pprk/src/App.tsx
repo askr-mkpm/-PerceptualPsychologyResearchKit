@@ -14,6 +14,7 @@ import VectionButton from './component/VectionButton';
 import VectionAdress from './component/VectionAdress';
 import VectionExport from './component/VectionExport';
 import VideoList from './component/VideoList';
+import Download from './component/SampleExportExcel';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <div>
             {/* <VectionAdress /> */}
             <VectionExport />
+            {/* <Download /> */}
           </div>
         </main>
       </div>
