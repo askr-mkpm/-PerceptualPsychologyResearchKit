@@ -6,6 +6,8 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,8 +28,24 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '25ch',
             },
         },
+        vectionButton: {
+            '& > *': {
+                margin: theme.spacing(1),
+            },
+        },
+        vectionSlider: {
+            '& > *': {
+                margin: theme.spacing(1),
+                width: 300,
+            },
+        },
     }),
 );
+
+function valuetext(value: number) {
+    return `${value}°C`;
+}
+
 interface IItem {
     id: number;
     name: string;
@@ -43,6 +61,7 @@ const VideoList: React.FC = () =>
     const [videoUrl, setVideoUrl] = React.useState<string>("");
     const [controlId, setControlId] = React.useState<number>(0);
     const [listId, setListId] = React.useState<number[]>([]);
+    const [duration, setDuration] = React.useState<number>();
 
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -141,6 +160,12 @@ const VideoList: React.FC = () =>
         setVideoUrlFromList();
     }
 
+    const handleDuration = (duration: any) =>
+    {
+        setDuration(duration);
+        console.log("duration:" + duration);//動画の長さを秒で返す
+    }
+
     return (
         <div>
             <form className={classes.urlInput} noValidate autoComplete="off">
@@ -187,7 +212,12 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
-            <ReactPlayer url={videoUrl} playing={playBool} onEnded={handleIncreControlId}/>
+            <ReactPlayer 
+                url={videoUrl} 
+                playing={playBool} 
+                onEnded={handleIncreControlId} 
+                onDuration={handleDuration}
+            />
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handlePlayBool}>
@@ -200,7 +230,26 @@ const VideoList: React.FC = () =>
                     pause
                 </Button>
             </div>
+
+            <div className={classes.vectionButton}>
+                <Button variant="contained">VectionButton</Button>
+            </div>
             
+            <div className={classes.vectionSlider}>
+                {/* <Typography id="vectionSlider" gutterBottom>
+                主観強度
+                </Typography> */}
+                <Slider
+                defaultValue={50}
+                getAriaValueText={valuetext}
+                aria-labelledby="vectionSlider"
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={0}
+                max={100}
+                />
+            </div>
             {/* <button onClick={handleIncreControlId}>next</button> */}
             {/* <button onClick={handleDecreControlId}>back</button> */}
         </div>

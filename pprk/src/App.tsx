@@ -40,12 +40,12 @@ function App() {
             <StopButton /> */}
           </div>
           <div>
-            <VectionButton />
-            <VectionSlider />
+            {/* <VectionButton /> */}
+            {/* <VectionSlider /> */}
           </div>
           <div>
             {/* <VectionAdress /> */}
-            <VectionExport />
+            {/* <VectionExport /> */}
             <Download />
           </div>
         </main>
