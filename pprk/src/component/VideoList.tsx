@@ -62,6 +62,8 @@ const VideoList: React.FC = () =>
     const [controlId, setControlId] = React.useState<number>(0);
     const [listId, setListId] = React.useState<number[]>([]);
     const [duration, setDuration] = React.useState<number>();
+    // const [played, setPlayed] = React.useState<number>();
+    const [playedSeconds, setPlayedSeconds] = React.useState<number>();
 
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -166,6 +168,19 @@ const VideoList: React.FC = () =>
         console.log("duration:" + duration);//動画の長さを秒で返す
     }
 
+    // const handlePlayed = (state: any) =>
+    // {
+    //     setPlayed(state.played);
+    //     console.log(played);
+    // }
+
+    const handlePlayedSeconds = (state: any) =>
+    {
+        setPlayedSeconds(state.playedSeconds);
+        console.log("seconds:"+playedSeconds);
+    } 
+
+
     return (
         <div>
             <form className={classes.urlInput} noValidate autoComplete="off">
@@ -217,6 +232,7 @@ const VideoList: React.FC = () =>
                 playing={playBool} 
                 onEnded={handleIncreControlId} 
                 onDuration={handleDuration}
+                onProgress={handlePlayedSeconds}
             />
 
             <div className={classes.stdButton}>
