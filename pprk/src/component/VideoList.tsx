@@ -8,6 +8,11 @@ import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import ReactExport from "react-data-export";
+
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -217,7 +222,8 @@ const VideoList: React.FC = () =>
             sumkeyDownTime += span;
             // console.log("span:"+span);
         }
-        console.log(sumkeyDownTime);//押した時間の合計
+        console.log("sumkeydowntime:"+sumkeyDownTime);//押した時間の合計
+        //条件番号うんぬんのときはlistidをそれぞれのarrayに追加してやればおｋ
     }
 
     return (
@@ -315,6 +321,19 @@ const VideoList: React.FC = () =>
             </div>
             {/* <button onClick={handleIncreControlId}>next</button> */}
             {/* <button onClick={handleDecreControlId}>back</button> */}
+            <div>
+                <ExcelFile>
+                    <ExcelSheet data={vectionDownList} name="VectionDownList">
+                        <ExcelColumn label="id" value="id"/>
+                        <ExcelColumn label="timing" value="timing"/>
+                    </ExcelSheet>
+                    {/* <ExcelSheet data={dataSet2} name="Leaves">
+                        <ExcelColumn label="Name" value="name"/>
+                        <ExcelColumn label="Total Leaves" value="total"/>
+                        <ExcelColumn label="Remaining Leaves" value="remaining"/>
+                    </ExcelSheet> */}
+                </ExcelFile>
+            </div>
         </div>
     );
 };

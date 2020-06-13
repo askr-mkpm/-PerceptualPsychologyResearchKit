@@ -46,7 +46,7 @@ function App() {
           <div>
             {/* <VectionAdress /> */}
             {/* <VectionExport /> */}
-            <Download />
+            {/* <Download /> */}
           </div>
         </main>
       </div>
