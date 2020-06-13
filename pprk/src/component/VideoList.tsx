@@ -200,12 +200,36 @@ const VideoList: React.FC = () =>
         // console.log("down"+vectionDown);
     }
 
+    const handleVectionButtonDown_key =  (e: React.KeyboardEvent) =>
+    {
+        e.preventDefault();
+        const KEY_CODE = 13;
+        let downValue: number = Number(playedSeconds);
+        if(e.keyCode == KEY_CODE)
+        {
+            setVectionDown([...vectionDownList, { id: vectionDownList.length + 1, timing: downValue }]);
+            console.log("keydown"+downValue);
+        }
+    }
+
     const handleVectionButtonUp =  (e: React.FormEvent<HTMLButtonElement>) =>
     {
         e.preventDefault();
         let upValue: number = Number(playedSeconds);
         setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
         // console.log("up"+vectionUp);
+    }
+
+    const handleVectionButtonUp_key =  (e: React.KeyboardEvent) =>
+    {
+        e.preventDefault();
+        const KEY_CODE = 13;
+        let upValue: number = Number(playedSeconds);
+        if(e.keyCode == KEY_CODE)
+        {
+            setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
+            console.log("keyup"+upValue);
+        }
     }
 
     const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
@@ -272,13 +296,15 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
-            <ReactPlayer 
-                url={videoUrl} 
-                playing={playBool} 
-                onEnded={handleIncreControlId} 
-                onDuration={handleDuration}
-                onProgress={handlePlayedSeconds}
-            />
+            {/* <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}> */}
+                <ReactPlayer 
+                    url={videoUrl} 
+                    playing={playBool} 
+                    onEnded={handleIncreControlId} 
+                    onDuration={handleDuration}
+                    onProgress={handlePlayedSeconds}
+                />
+            {/* </div> */}
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handlePlayBool}>
@@ -297,9 +323,18 @@ const VideoList: React.FC = () =>
                     variant="contained"
                     onMouseDown={handleVectionButtonDown}
                     onMouseUp={handleVectionButtonUp}
+                    // onKeyDown={handleVectionButtonDown_key}
+                    // onKeyUp={handleVectionButtonUp_key}
                     >VectionButton
                 </Button>
             </div>
+            {/* <div>
+                <input
+                    type="text"
+                    onKeyDown={handleVectionButtonDown_key}
+                    onKeyUp={handleVectionButtonUp_key}
+                />
+            </div> */}
             <div>
                 <Button variant="contained" color="secondary" onClick={handleTest}>test</Button>
             </div>
