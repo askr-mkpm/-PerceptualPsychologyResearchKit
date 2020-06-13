@@ -194,7 +194,8 @@ const VideoList: React.FC = () =>
 
     const handleVectionButtonDown =  (e: React.FormEvent<HTMLButtonElement>) =>
     {
-        e.preventDefault();
+        // e.preventDefault();
+        e.stopPropagation();
         let downValue: number = Number(playedSeconds);
         setVectionDown([...vectionDownList, { id: vectionDownList.length + 1, timing: downValue }]);
         // console.log("down"+vectionDown);
@@ -202,7 +203,8 @@ const VideoList: React.FC = () =>
 
     const handleVectionButtonDown_key =  (e: React.KeyboardEvent) =>
     {
-        e.preventDefault();
+        // e.preventDefault();
+        e.stopPropagation();
         const KEY_CODE = 13;
         let downValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
@@ -214,7 +216,8 @@ const VideoList: React.FC = () =>
 
     const handleVectionButtonUp =  (e: React.FormEvent<HTMLButtonElement>) =>
     {
-        e.preventDefault();
+        // e.preventDefault();
+        e.stopPropagation();
         let upValue: number = Number(playedSeconds);
         setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
         // console.log("up"+vectionUp);
@@ -222,7 +225,8 @@ const VideoList: React.FC = () =>
 
     const handleVectionButtonUp_key =  (e: React.KeyboardEvent) =>
     {
-        e.preventDefault();
+        // e.preventDefault();
+        e.stopPropagation();
         const KEY_CODE = 13;
         let upValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
@@ -230,6 +234,13 @@ const VideoList: React.FC = () =>
             setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
             console.log("keyup"+upValue);
         }
+    }
+
+    const handleInputUrl = (e: React.ChangeEvent<HTMLInputElement>) =>
+    {
+        // e.stopPropagation();
+        e.preventDefault();
+        setInpurUrl(e.target.value)
     }
 
     const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
@@ -251,14 +262,14 @@ const VideoList: React.FC = () =>
     }
 
     return (
-        <div>
+        <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
             <form className={classes.urlInput} noValidate autoComplete="off">
                 <TextField 
                     id="outlined-basic"
                     label="URL"
                     variant="outlined" 
                     value={inputUrl}
-                    onChange={e => setInpurUrl(e.target.value)}
+                    onChange={handleInputUrl}
                 />
             </form>
 
