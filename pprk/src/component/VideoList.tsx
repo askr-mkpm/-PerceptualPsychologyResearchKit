@@ -51,6 +51,11 @@ interface IItem {
     name: string;
 }
 
+interface ITiming {
+    id: number;
+    timing: number;
+}
+
 const VideoList: React.FC = () =>
 {
     const classes = useStyles();
@@ -64,6 +69,8 @@ const VideoList: React.FC = () =>
     const [duration, setDuration] = React.useState<number>();
     // const [played, setPlayed] = React.useState<number>();
     const [playedSeconds, setPlayedSeconds] = React.useState<number>();
+    const [vectionDownList, setVectionDown] = React.useState<ITiming[]>([]);
+    const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
 
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -177,9 +184,41 @@ const VideoList: React.FC = () =>
     const handlePlayedSeconds = (state: any) =>
     {
         setPlayedSeconds(state.playedSeconds);
-        console.log("seconds:"+playedSeconds);
+        // console.log("seconds:"+playedSeconds);
     } 
 
+    const handleVectionButtonDown =  (e: React.FormEvent<HTMLButtonElement>) =>
+    {
+        e.preventDefault();
+        let downValue: number = Number(playedSeconds);
+        setVectionDown([...vectionDownList, { id: vectionDownList.length + 1, timing: downValue }]);
+        // console.log("down"+vectionDown);
+    }
+
+    const handleVectionButtonUp =  (e: React.FormEvent<HTMLButtonElement>) =>
+    {
+        e.preventDefault();
+        let upValue: number = Number(playedSeconds);
+        setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
+        // console.log("up"+vectionUp);
+    }
+
+    const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
+    {
+        e.preventDefault();
+        let sumkeyDownTime: number = 0;
+        for(let i=0; i < vectionDownList.length; i++ )
+        {
+            let vd: any = vectionDownList.find(({id}) => id === i+1)?.timing;
+            let vu: any = vectionUpList.find(({id}) => id === i+1)?.timing;
+            // console.log("vd:"+vd);
+            // console.log("vu:"+vu);
+            let span: number = vu-vd;
+            sumkeyDownTime += span;
+            // console.log("span:"+span);
+        }
+        console.log(sumkeyDownTime);//押した時間の合計
+    }
 
     return (
         <div>
@@ -248,7 +287,15 @@ const VideoList: React.FC = () =>
             </div>
 
             <div className={classes.vectionButton}>
-                <Button variant="contained">VectionButton</Button>
+                <Button 
+                    variant="contained"
+                    onMouseDown={handleVectionButtonDown}
+                    onMouseUp={handleVectionButtonUp}
+                    >VectionButton
+                </Button>
+            </div>
+            <div>
+                <Button variant="contained" color="secondary" onClick={handleTest}>test</Button>
             </div>
             
             <div className={classes.vectionSlider}>
