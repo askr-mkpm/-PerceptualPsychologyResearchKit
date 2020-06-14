@@ -313,15 +313,19 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
-            {/* <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}> */}
+            <div className='player-wrapper'>
                 <ReactPlayer 
-                    url={videoUrl} 
+                    className='react-player'
+                    // url={videoUrl} 
+                    url='https://youtu.be/3Dr91z1-Iug'
                     playing={playBool} 
                     onEnded={handleIncreControlId} 
                     onDuration={handleDuration}
                     onProgress={handlePlayedSeconds}
+                    width='100%'
+                    height='100%'
                 />
-            {/* </div> */}
+            </div>
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handlePlayBool}>
