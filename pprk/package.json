@@ -44,7 +44,9 @@
     ]
   },
   "devDependencies": {
+    "@types/screenfull": "^4.1.0",
     "node-sass": "^4.14.1",
+    "react-full-screen": "^0.2.4",
     "screenfull": "^5.0.2"
   }
 }
