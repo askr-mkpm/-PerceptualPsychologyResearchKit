@@ -209,8 +209,9 @@ const VideoList: React.FC = () =>
         let downValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
         {
-            setVectionDown([...vectionDownList, { id: vectionDownList.length + 1, timing: downValue }]);
-            console.log("keydown"+downValue);
+            let did = vectionDownList.length + 1
+            setVectionDown([...vectionDownList, { id: did, timing: downValue }]);
+            // console.log("keydown"+downValue);
         }
     }
 
@@ -231,8 +232,11 @@ const VideoList: React.FC = () =>
         let upValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
         {
-            setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
-            console.log("keyup"+upValue);
+            let uid = vectionUpList.length + 1;
+            setVectionUp([...vectionUpList, { id: uid, timing: upValue }]);
+            let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
+            setVectionDown(downList);
+            // console.log("keyup"+upValue);
         }
     }
 
@@ -258,6 +262,8 @@ const VideoList: React.FC = () =>
             // console.log("span:"+span);
         }
         console.log("sumkeydowntime:"+sumkeyDownTime);//押した時間の合計
+        // console.log("downList:"+vectionDownList);
+        // console.log("upList:"+vectionUpList);
         //条件番号うんぬんのときはlistidをそれぞれのarrayに追加してやればおｋ
     }
 
