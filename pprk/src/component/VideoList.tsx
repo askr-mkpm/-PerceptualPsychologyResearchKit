@@ -9,6 +9,7 @@ import ReactPlayer from 'react-player'
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import ReactExport from "react-data-export";
+import * as Scroll from 'react-scroll';
 
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
@@ -142,6 +143,10 @@ const VideoList: React.FC = () =>
 
     const handlePlayBool = (e: React.FormEvent<HTMLButtonElement>) => 
     {
+        Scroll.scroller.scrollTo('player', {
+            duration: 500,
+            smooth: true
+        })
         setPlayBool(true);
     }
 
@@ -316,6 +321,7 @@ const VideoList: React.FC = () =>
             <div className='player-wrapper'>
                 <ReactPlayer 
                     className='react-player'
+                    name="player"
                     // url={videoUrl} 
                     url='https://youtu.be/3Dr91z1-Iug'
                     playing={playBool} 
