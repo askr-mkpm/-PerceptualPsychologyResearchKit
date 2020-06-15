@@ -164,8 +164,8 @@ const VideoList: React.FC = () =>
             value = "";
         }
 
+        setPlayBool(false);
         setVideoUrl(value);
-        setPlayBool(true);
     }
 
     const handleIncreControlId = () => 
@@ -322,8 +322,8 @@ const VideoList: React.FC = () =>
                 <ReactPlayer 
                     className='react-player'
                     name="player"
-                    // url={videoUrl} 
-                    url='https://youtu.be/3Dr91z1-Iug'
+                    url={videoUrl} 
+                    // url='https://youtu.be/3Dr91z1-Iug'
                     playing={playBool} 
                     onEnded={handleIncreControlId} 
                     onDuration={handleDuration}
