@@ -253,15 +253,33 @@ const VideoList: React.FC = () =>
         let sumkeyDownTime: number = 0;
         let coid: number = controlId-1;
         console.log("coid:"+coid);
-        for(let i=0; i < vectionDownList.length; i++ )
+
+        console.dir("downlist"+vectionDownList.length);
+        console.dir("uplist"+vectionUpList.length);
+
+        let cidKeyDownList: ITiming[] = vectionDownList.filter((v) => v.cid >= coid);
+        let cidKeyUpList: ITiming[] = vectionUpList.filter((v) => v.cid >= coid);//coid番目の試行のkeydownuplistだけ抽出
+
+        let preUpLength: number = 0;
+        if(coid > 0)
         {
-            let vd: any = vectionDownList.find(({id, cid}) => id === i+1 && cid === coid)?.timing;
-            let vu: any = vectionUpList.find(({id, cid}) => id === i+1 && cid === coid)?.timing;
+            preUpLength = vectionUpList.filter((v) => v.cid < coid).length;//coid番目試行以前の配列の長さを取得
+        }
+        
+        console.log("ciddownlist"+cidKeyDownList);
+        console.log("ciduplist"+cidKeyUpList);
+
+        for(let i=0; i < cidKeyUpList.length; i++)
+        {
+            let vd: any = cidKeyDownList.find(({id}) => id == i+1+preUpLength)?.timing;//cidが2以降のやつのidは1からじゃない.上でfilterしてもそのidはかわらない
+            let vu: any = cidKeyUpList.find(({id}) => id == i+1+preUpLength)?.timing;
             // let vd: any = vectionDownList.find(({id}) => id === i+1)?.timing;
             // let vu: any = vectionUpList.find(({id}) => id === i+1)?.timing;
-            // console.log("vd:"+vd);
-            // console.log("vu:"+vu);
+            console.log("vd:"+vd);
+            console.log("vu:"+vu);
+
             let span: number = vu-vd;
+            // let span: number = 1;
             sumkeyDownTime += span;
             // console.log("span:"+span);
         }
@@ -280,6 +298,7 @@ const VideoList: React.FC = () =>
         //     smooth: true
         // })
         // setPlayBool(true);
+        //ここでsetboolを回避することでcalcvectionduration();のkeydown時の謎発火を防げた
     }
 
     const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
