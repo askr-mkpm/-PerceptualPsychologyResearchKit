@@ -58,8 +58,14 @@ interface IItem {
 }
 
 interface ITiming {
-    id: number;
+    id: number;//1試行内のid
+    cid: number; //試行番号
     timing: number;
+}
+
+interface IDuration {
+    cid: number;
+    value: number;
 }
 
 const VideoList: React.FC = () =>
@@ -77,6 +83,7 @@ const VideoList: React.FC = () =>
     const [playedSeconds, setPlayedSeconds] = React.useState<number>();
     const [vectionDownList, setVectionDown] = React.useState<ITiming[]>([]);
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
+    const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
 
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -203,15 +210,6 @@ const VideoList: React.FC = () =>
         // console.log("seconds:"+playedSeconds);
     } 
 
-    const handleVectionButtonDown =  (e: React.FormEvent<HTMLButtonElement>) =>
-    {
-        // e.preventDefault();
-        e.stopPropagation();
-        let downValue: number = Number(playedSeconds);
-        setVectionDown([...vectionDownList, { id: vectionDownList.length + 1, timing: downValue }]);
-        // console.log("down"+vectionDown);
-    }
-
     const handleVectionButtonDown_key =  (e: React.KeyboardEvent) =>
     {
         // e.preventDefault();
@@ -221,18 +219,9 @@ const VideoList: React.FC = () =>
         if(e.keyCode == KEY_CODE)
         {
             let did = vectionDownList.length + 1
-            setVectionDown([...vectionDownList, { id: did, timing: downValue }]);
+            setVectionDown([...vectionDownList, { cid: controlId, id: did, timing: downValue }]);
             // console.log("keydown"+downValue);
         }
-    }
-
-    const handleVectionButtonUp =  (e: React.FormEvent<HTMLButtonElement>) =>
-    {
-        // e.preventDefault();
-        e.stopPropagation();
-        let upValue: number = Number(playedSeconds);
-        setVectionUp([...vectionUpList, { id: vectionUpList.length + 1, timing: upValue }]);
-        // console.log("up"+vectionUp);
     }
 
     const handleVectionButtonUp_key =  (e: React.KeyboardEvent) =>
@@ -244,7 +233,7 @@ const VideoList: React.FC = () =>
         if(e.keyCode == KEY_CODE)
         {
             let uid = vectionUpList.length + 1;
-            setVectionUp([...vectionUpList, { id: uid, timing: upValue }]);
+            setVectionUp([...vectionUpList, { cid: controlId, id: uid, timing: upValue }]);
             let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
             setVectionDown(downList);
             // console.log("keyup"+upValue);
@@ -258,14 +247,18 @@ const VideoList: React.FC = () =>
         setInpurUrl(e.target.value)
     }
 
-    const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
+    const calcVectionDuration = () =>
     {
-        e.preventDefault();
+        // e.preventDefault();
         let sumkeyDownTime: number = 0;
+        let coid: number = controlId-1;
+        console.log("coid:"+coid);
         for(let i=0; i < vectionDownList.length; i++ )
         {
-            let vd: any = vectionDownList.find(({id}) => id === i+1)?.timing;
-            let vu: any = vectionUpList.find(({id}) => id === i+1)?.timing;
+            let vd: any = vectionDownList.find(({id, cid}) => id === i+1 && cid === coid)?.timing;
+            let vu: any = vectionUpList.find(({id, cid}) => id === i+1 && cid === coid)?.timing;
+            // let vd: any = vectionDownList.find(({id}) => id === i+1)?.timing;
+            // let vu: any = vectionUpList.find(({id}) => id === i+1)?.timing;
             // console.log("vd:"+vd);
             // console.log("vu:"+vu);
             let span: number = vu-vd;
@@ -273,9 +266,25 @@ const VideoList: React.FC = () =>
             // console.log("span:"+span);
         }
         console.log("sumkeydowntime:"+sumkeyDownTime);//押した時間の合計
-        // console.log("downList:"+vectionDownList);
-        // console.log("upList:"+vectionUpList);
-        //条件番号うんぬんのときはlistidをそれぞれのarrayに追加してやればおｋ
+        setVectionDurationList([...vectionDurationList, { cid: coid, value: sumkeyDownTime}]);
+        //controlId-1はさきにincrementIDがはしっちゃっててその調整あとでちゃんとシュッとするように
+    }
+
+    const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>
+    {
+        e.preventDefault();
+        calcVectionDuration();
+
+        Scroll.scroller.scrollTo('player', {
+            duration: 500,
+            smooth: true
+        })
+        setPlayBool(true);
+    }
+
+    const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
+    {
+        console.log("durationList: "+vectionDurationList);
     }
 
     return (
@@ -351,7 +360,7 @@ const VideoList: React.FC = () =>
                 </Button>
             </div> */}
 
-            <div className={classes.vectionButton}>
+            {/* <div className={classes.vectionButton}>
                 <Button 
                     variant="contained"
                     onMouseDown={handleVectionButtonDown}
@@ -360,13 +369,14 @@ const VideoList: React.FC = () =>
                     // onKeyUp={handleVectionButtonUp_key}
                     >VectionButton
                 </Button>
-            </div>
+            </div> */}
             {/* <div>
                 <input
                     type="text"
                     onKeyDown={handleVectionButtonDown_key}
                     onKeyUp={handleVectionButtonUp_key}
                 />
+
             </div> */}
             <div>
                 <Button variant="contained" color="secondary" onClick={handleTest}>test</Button>
@@ -389,7 +399,7 @@ const VideoList: React.FC = () =>
             </div>
 
             <div className={classes.stdButton}>
-                <Button variant="contained" color="primary" onClick={handlePlayBool}>
+                <Button variant="contained" color="primary" onClick={handleContinue}>
                     continue
                 </Button>
             </div>
