@@ -60,11 +60,13 @@ interface IItem {
 interface ITiming {
     id: number;//1試行内のid
     cid: number; //試行番号
+    lid: number; //条件番号
     timing: number;
 }
 
 interface IDuration {
-    cid: number;
+    cid: number;//試行番号
+    lid: number;//条件番号
     value: number;
 }
 
@@ -219,7 +221,7 @@ const VideoList: React.FC = () =>
         if(e.keyCode == KEY_CODE)
         {
             let did = vectionDownList.length + 1
-            setVectionDown([...vectionDownList, { cid: controlId, id: did, timing: downValue }]);
+            setVectionDown([...vectionDownList, {lid: listId[controlId] ,cid: controlId, id: did, timing: downValue }]);
             // console.log("keydown"+downValue);
         }
     }
@@ -233,7 +235,7 @@ const VideoList: React.FC = () =>
         if(e.keyCode == KEY_CODE)
         {
             let uid = vectionUpList.length + 1;
-            setVectionUp([...vectionUpList, { cid: controlId, id: uid, timing: upValue }]);
+            setVectionUp([...vectionUpList, {lid: listId[controlId], cid: controlId, id: uid, timing: upValue }]);
             let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
             setVectionDown(downList);
             // console.log("keyup"+upValue);
@@ -284,7 +286,7 @@ const VideoList: React.FC = () =>
             // console.log("span:"+span);
         }
         console.log("sumkeydowntime:"+sumkeyDownTime);//押した時間の合計
-        setVectionDurationList([...vectionDurationList, { cid: coid, value: sumkeyDownTime}]);
+        setVectionDurationList([...vectionDurationList, { lid: listId[coid], cid: coid, value: sumkeyDownTime}]);
         //controlId-1はさきにincrementIDがはしっちゃっててその調整あとでちゃんとシュッとするように
     }
 
@@ -352,12 +354,6 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
-            <div className={classes.stdButton}>
-                <Button variant="contained" color="primary" onClick={handlePlayBool}>
-                    start
-                </Button>
-            </div>
-
             <div className='player-wrapper'>
                 <ReactPlayer 
                     className='react-player'
@@ -397,10 +393,16 @@ const VideoList: React.FC = () =>
                 />
 
             </div> */}
-            <div>
+            {/* <div>
                 <Button variant="contained" color="secondary" onClick={handleTest}>test</Button>
+            </div> */}
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={handlePlayBool}>
+                    play
+                </Button>
             </div>
-            
+
             <div className={classes.vectionSlider}>
                 {/* <Typography id="vectionSlider" gutterBottom>
                 主観強度
@@ -419,7 +421,7 @@ const VideoList: React.FC = () =>
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handleContinue}>
-                    continue
+                    input
                 </Button>
             </div>
 
@@ -428,8 +430,21 @@ const VideoList: React.FC = () =>
             <div>
                 <ExcelFile>
                     <ExcelSheet data={vectionDownList} name="VectionDownList">
-                        <ExcelColumn label="id" value="id"/>
-                        <ExcelColumn label="timing" value="timing"/>
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="潜時(down)(sec)" value="timing"/>
+                    </ExcelSheet>
+                    <ExcelSheet data={vectionUpList} name="VectionUpList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="潜時(up)(sec)" value="timing"/>
+                    </ExcelSheet>
+                    <ExcelSheet data={vectionDurationList} name="VectionDurationList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        <ExcelColumn label="持続時間" value="value"/>
                     </ExcelSheet>
                     {/* <ExcelSheet data={dataSet2} name="Leaves">
                         <ExcelColumn label="Name" value="name"/>
