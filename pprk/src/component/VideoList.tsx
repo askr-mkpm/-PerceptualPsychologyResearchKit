@@ -468,6 +468,7 @@ const VideoList: React.FC = () =>
                     marks
                     min={0}
                     max={100}
+                    // value={label.id}
                     />
                 </div>
             )}
