@@ -324,6 +324,12 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={handlePlayBool}>
+                    start
+                </Button>
+            </div>
+
             <div className='player-wrapper'>
                 <ReactPlayer 
                     className='react-player'
@@ -339,17 +345,11 @@ const VideoList: React.FC = () =>
                 />
             </div>
 
-            <div className={classes.stdButton}>
-                <Button variant="contained" color="primary" onClick={handlePlayBool}>
-                    play
-                </Button>
-            </div>
-
-            <div className={classes.stdButton}>
+            {/* <div className={classes.stdButton}>
                 <Button variant="contained" color="secondary" onClick={handlePauseBool}>
                     pause
                 </Button>
-            </div>
+            </div> */}
 
             <div className={classes.vectionButton}>
                 <Button 
@@ -387,6 +387,13 @@ const VideoList: React.FC = () =>
                 max={100}
                 />
             </div>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={handlePlayBool}>
+                    continue
+                </Button>
+            </div>
+
             {/* <button onClick={handleIncreControlId}>next</button> */}
             {/* <button onClick={handleDecreControlId}>back</button> */}
             <div>
