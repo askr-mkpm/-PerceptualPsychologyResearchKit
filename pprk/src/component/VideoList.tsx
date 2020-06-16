@@ -175,8 +175,14 @@ const VideoList: React.FC = () =>
         let coid: number = controlId+1;
         setControlId(coid);
         console.log(coid);
-        //nextおしただんかいでsetvideourlもするのだよ
+        
         setVideoUrlFromList();
+        alertInputInfomation();
+    }
+
+    const alertInputInfomation = () =>
+    {
+        alert("Please enter a subjective intensity");
     }
 
     const handleDuration = (duration: any) =>
