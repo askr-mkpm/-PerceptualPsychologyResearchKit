@@ -45,6 +45,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: 300,
             },
         },
+        sliderInput: {
+            '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+            },
+        },
     }),
 );
 
@@ -70,6 +76,14 @@ interface IDuration {
     value: number;
 }
 
+interface ISlider {
+    // cid: number; //試行番号
+    // lid: number; //条件番号
+    id: number;  //主観強度の種類
+    label: string;
+    // value: number;
+}
+
 const VideoList: React.FC = () =>
 {
     const classes = useStyles();
@@ -87,12 +101,22 @@ const VideoList: React.FC = () =>
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
     const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
 
+    const [inputSlider, setInputSlider] = React.useState<string>("");
+    const [vectionSliderList, setVectionSliderList] = React.useState<ISlider[]>([]);
+
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
 
         setVideolist([...videoList, { id: videoList.length + 1, name: inputUrl }]);
         setInpurUrl("");
     };
+
+    const addInputSliderToList = (e: React.FormEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+
+        setVectionSliderList([...vectionSliderList, { id: vectionSliderList.length + 1, label: inputSlider }]);
+        setInputSlider("");
+    }
 
     const handleRepeatNum = (event: React.ChangeEvent<HTMLInputElement>): void =>
     {
@@ -249,6 +273,13 @@ const VideoList: React.FC = () =>
         setInpurUrl(e.target.value)
     }
 
+    const handleInputSlider = (e: React.ChangeEvent<HTMLInputElement>) =>
+    {
+        // e.stopPropagation();
+        e.preventDefault();
+        setInputSlider(e.target.value);
+    }
+
     const calcVectionDuration = () =>
     {
         // e.preventDefault();
@@ -322,7 +353,7 @@ const VideoList: React.FC = () =>
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="secondary" onClick={addUrlToList}>
-                    AddUrlToList
+                    Add Url To List
                 </Button>
             </div>
 
@@ -347,6 +378,26 @@ const VideoList: React.FC = () =>
                     CreateList
                 </Button>
             </div>
+
+            <form className={classes.sliderInput} noValidate autoComplete="off">
+                <TextField 
+                    id="outlined-basic"
+                    label="subjective intensity"
+                    variant="outlined" 
+                    value={inputSlider}
+                    onChange={handleInputSlider}
+                />
+            </form>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="secondary" onClick={addInputSliderToList}>
+                    Add Subjective Intensity To List
+                </Button>
+            </div>
+            
+            {vectionSliderList.map((label: ISlider) => 
+                <p>{label.label}</p>
+            )}
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
@@ -403,21 +454,23 @@ const VideoList: React.FC = () =>
                 </Button>
             </div>
 
-            <div className={classes.vectionSlider}>
-                {/* <Typography id="vectionSlider" gutterBottom>
-                主観強度
-                </Typography> */}
-                <Slider
-                defaultValue={50}
-                getAriaValueText={valuetext}
-                aria-labelledby="vectionSlider"
-                valueLabelDisplay="auto"
-                step={1}
-                marks
-                min={0}
-                max={100}
-                />
-            </div>
+            {vectionSliderList.map((label: ISlider) => 
+                <div className={classes.vectionSlider}>
+                    <Typography id="vectionSlider" gutterBottom>
+                        {label.label}
+                    </Typography>
+                    <Slider
+                    defaultValue={50}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="vectionSlider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={0}
+                    max={100}
+                    />
+                </div>
+            )}
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handleContinue}>
