@@ -275,11 +275,11 @@ const VideoList: React.FC = () =>
         e.preventDefault();
         calcVectionDuration();
 
-        Scroll.scroller.scrollTo('player', {
-            duration: 500,
-            smooth: true
-        })
-        setPlayBool(true);
+        // Scroll.scroller.scrollTo('player', {
+        //     duration: 500,
+        //     smooth: true
+        // })
+        // setPlayBool(true);
     }
 
     const handleTest = (e: React.FormEvent<HTMLButtonElement>) =>
