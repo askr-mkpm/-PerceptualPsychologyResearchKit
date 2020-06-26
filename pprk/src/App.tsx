@@ -15,8 +15,11 @@ import VectionAdress from './component/VectionAdress';
 import VectionExport from './component/VectionExport';
 import VideoList from './component/VideoList';
 import Download from './component/SampleExportExcel';
+// import SampleProp from './component/Sampleprop';
 
 function App() {
+  // const [sampleNum, setSampleNum] = React.useState<number>(0);
+
   return (
     <div className="App">
       <header>
@@ -24,6 +27,9 @@ function App() {
       </header>
       <div className="bg">
         <main>
+          {/* <div>
+            <SampleProp sampleNumber={sampleNum} />
+          </div> */}
           <div>
             {/* <VideoRenderer /> */}
           </div>
