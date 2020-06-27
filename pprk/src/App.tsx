@@ -40,7 +40,7 @@ function App() {
             {/* <VideoNum /> */}
             {/* <UrlInput /> */}
             {/* <VideoList /> */}
-            {/* <RepeatNum /> */}
+            <RepeatNum />
             {/* <CreateVideoList /> */}
           </div>
           <div>
