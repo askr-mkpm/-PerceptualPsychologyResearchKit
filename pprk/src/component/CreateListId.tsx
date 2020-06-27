@@ -1,8 +1,9 @@
-import React, { useState, useContext }from 'react';
+import React, { useState, useContext, createContext }from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import Player from './Player';
 import {VideoListContext, RepeatNumContext} from './InputList';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,6 +35,8 @@ interface IList {
     name: string;
 }
 
+export const ListIdContext = createContext([] as number[]);
+
 const CreateListId: React.FC = () =>
 {
     const classes = useStyles();
@@ -63,10 +66,16 @@ const CreateListId: React.FC = () =>
     }
 
     return (
-        <div className={classes.stdButton}>
-            <Button variant="contained" onClick={createList}>
-                CreateList
-            </Button>
+        <div>
+            <div className={classes.stdButton}>
+                <Button variant="contained" onClick={createList}>
+                    CreateList
+                </Button>
+            </div>
+
+            <ListIdContext.Provider value={listId}>
+                <Player />
+            </ListIdContext.Provider>
         </div>
     )
 }
