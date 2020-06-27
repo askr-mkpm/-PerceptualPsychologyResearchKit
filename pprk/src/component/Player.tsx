@@ -1,18 +1,13 @@
-import React, { useState, useContext }from 'react';
-import { render } from "react-dom";
-import TextField from '@material-ui/core/TextField';
+import React, { useContext, createContext }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
 import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import ReactExport from "react-data-export";
 import * as Scroll from 'react-scroll';
 
 import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
+
+import KeyInput from './KeyInput';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,13 +24,16 @@ interface IList {
     name: string;
 }
 
+export const ControlIdContext = createContext(0);
+export const PlayedSecondsContext = createContext(0);
+
 const Player: React.FC = () =>
 {
     const classes = useStyles();
     const [playBool, setPlayBool] = React.useState<boolean>(false);
     const [videoUrl, setVideoUrl] = React.useState<string>("");
     const [controlId, setControlId] = React.useState<number>(0);
-    const [playedSeconds, setPlayedSeconds] = React.useState<number>();
+    const [playedSeconds, setPlayedSeconds] = React.useState<number>(0);
 
     const listId: number[] = useContext(ListIdContext);
     const videoList: IList[] = useContext(VideoListContext);
@@ -130,6 +128,12 @@ const Player: React.FC = () =>
                     play
                 </Button>
             </div>
+
+            <ControlIdContext.Provider value={controlId}>
+            <PlayedSecondsContext.Provider value={playedSeconds}>
+                <KeyInput />
+            </PlayedSecondsContext.Provider>
+            </ControlIdContext.Provider>
         </div>
     )
 }
