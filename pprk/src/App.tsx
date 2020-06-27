@@ -17,6 +17,7 @@ import VideoList from './component/VideoList';
 import Download from './component/SampleExportExcel';
 // import SampleProp from './component/Sampleprop';
 import InputUrlList from './component/InputUrlList';
+import InputList from './component/InputList';
 
 function App() {
   // const [sampleNum, setSampleNum] = React.useState<number>(0);
@@ -36,11 +37,12 @@ function App() {
           </div>
           <div>
             <ExpTitle />
-            <InputUrlList />
+            <InputList />
+            {/* <InputUrlList /> */}
             {/* <VideoNum /> */}
             {/* <UrlInput /> */}
             {/* <VideoList /> */}
-            <RepeatNum />
+            {/* <RepeatNum /> */}
             {/* <CreateVideoList /> */}
           </div>
           <div>

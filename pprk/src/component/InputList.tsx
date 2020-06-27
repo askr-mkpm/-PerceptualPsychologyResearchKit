@@ -1,7 +1,9 @@
-import React, { useState, useContext }from 'react';
+import React, { useState, useContext, createContext }from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+
+import CreateListId from './CreateListId';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -30,7 +32,10 @@ interface IList {
     name: string;
 }
 
-const InputUrlList: React.FC = () =>
+export const VideoListContext = createContext([] as IList[]);
+export const RepeatNumContext = createContext(0);
+
+const InputList: React.FC = () =>
 {
     const classes = useStyles();
     const [inputUrl, setInpurUrl] = useState<string>("");
@@ -75,6 +80,8 @@ const InputUrlList: React.FC = () =>
                 </Button>
             </div>
 
+            {videoList.map((item: IList) => <p>{item.name}</p>)}
+
             <form className={classes.repNum} noValidate autoComplete="off">
                 <TextField
                     id="filled-number"
@@ -88,8 +95,15 @@ const InputUrlList: React.FC = () =>
                     onChange = {handleRepeatNum}
                 />
             </form>
+            {/* <VideoListContext.Provider value={videoList}> */}
+            <RepeatNumContext.Provider value={repeatNum}>
+            <VideoListContext.Provider value={videoList}>
+                <CreateListId />
+            </VideoListContext.Provider>
+            </RepeatNumContext.Provider>
+            
         </div>
     )
 }
 
-export default InputUrlList;
+export default InputList;
