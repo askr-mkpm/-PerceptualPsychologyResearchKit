@@ -63,6 +63,13 @@ const CreateListId: React.FC = () =>
         console.log(videoList);
 
         setListId(_listId);
+
+        alert(
+            "繰り返し回数:" 
+            + repeatNum 
+            + " "
+            + "の動画リストを作成しました"
+        );
     }
 
     return (
