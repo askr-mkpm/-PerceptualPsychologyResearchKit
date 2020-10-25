@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme: Theme) =>
             margin: theme.spacing(1),
             width: '7ch',
             },
-        }
+        },
+        multilineColor:{
+            color:'white'
+        },
     }),
 );
 
@@ -71,6 +74,8 @@ const InputList: React.FC = () =>
                     variant="outlined" 
                     value={inputUrl}
                     onChange={handleInputUrl}
+                    inputProps={{className: classes.multilineColor }}
+                    InputLabelProps={{ className: classes.multilineColor }}
                 />
             </form>
 
@@ -87,8 +92,9 @@ const InputList: React.FC = () =>
                     id="filled-number"
                     label="RepeatNum"
                     type="number"
+                    inputProps={{className: classes.multilineColor }}
                     InputLabelProps={{
-                        shrink: true,
+                        className: classes.multilineColor
                     }}
                     variant="filled"
                     value={repeatNum}
