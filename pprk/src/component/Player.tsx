@@ -123,7 +123,7 @@ const Player: React.FC = () =>
     {
         // e.preventDefault();
         e.stopPropagation();
-        const KEY_CODE = 13;
+        const KEY_CODE = 68;//d
         let downValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
         {
@@ -137,7 +137,7 @@ const Player: React.FC = () =>
     {
         // e.preventDefault();
         e.stopPropagation();
-        const KEY_CODE = 13;
+        const KEY_CODE = 68;//d
         let upValue: number = Number(playedSeconds);
         if(e.keyCode == KEY_CODE)
         {
