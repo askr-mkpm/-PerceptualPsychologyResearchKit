@@ -48,6 +48,7 @@ const Player: React.FC = () =>
     const [videoUrl, setVideoUrl] = React.useState<string>("");
     const [controlId, setControlId] = React.useState<number>(0);
     const [playedSeconds, setPlayedSeconds] = React.useState<number>(0);
+    const [durationSeconds, setDurationSeconds] = React.useState<number>(0);
 
     const [vectionDownList, setVectionDown] = React.useState<ITiming[]>([]);
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
@@ -196,6 +197,17 @@ const Player: React.FC = () =>
         calcVectionDuration();
     }
 
+    const handleDurationLog =  (durationSeconds: any) =>
+    {
+
+        setDurationSeconds(durationSeconds);
+
+        //初回で1秒おおくなってしまうので調整、ただし二回目以降は正確になる（謎の誤差がある）
+        const duration: number = durationSeconds-1;
+        
+         console.log("duration_log:"+ duration);
+    }
+
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
             <div className={classes.stdButton}>
@@ -213,6 +225,7 @@ const Player: React.FC = () =>
                     playing={playBool} 
                     onEnded={handleIncreControlId} 
                     onProgress={handlePlayedSeconds}
+                    onDuration={handleDurationLog}
                     width='100%'
                     height='100%'
                 />
