@@ -106,6 +106,7 @@ const Player: React.FC = () =>
         console.log(coid);
         
         setVideoUrlFromList();
+
         alertInputInfomation();
     }
 
@@ -116,7 +117,12 @@ const Player: React.FC = () =>
 
     const handlePlayedSeconds = (state: any) =>
     {
-        setPlayedSeconds(state.playedSeconds);
+        let ps: number = state.playedSeconds
+        if(playBool == false)
+        {
+            ps = 0;
+        }
+        setPlayedSeconds(ps);
         // console.log("seconds:"+playedSeconds);
     } 
 
@@ -126,7 +132,7 @@ const Player: React.FC = () =>
         e.stopPropagation();
         const KEY_CODE = 68;//d
         let downValue: number = Number(playedSeconds);
-        if(e.keyCode == KEY_CODE)
+        if(e.keyCode == KEY_CODE && playBool == true) //playboolの分岐: 動画再生されていないときのkeydownをふせぐ 
         {
             let did = vectionDownList.length + 1
             setVectionDown([...vectionDownList, {lid: listId[controlId] ,cid: controlId, id: did, timing: downValue }]);
@@ -140,7 +146,7 @@ const Player: React.FC = () =>
         e.stopPropagation();
         const KEY_CODE = 68;//d
         let upValue: number = Number(playedSeconds);
-        if(e.keyCode == KEY_CODE)
+        if(e.keyCode == KEY_CODE && playBool == true)
         {
             let uid = vectionUpList.length + 1;
             setVectionUp([...vectionUpList, {lid: listId[controlId], cid: controlId, id: uid, timing: upValue }]);
@@ -230,7 +236,8 @@ const Player: React.FC = () =>
         setDurationSeconds(durationSeconds);
 
         //初回で1秒おおくなってしまうので調整、ただし二回目以降は正確になる（謎の誤差がある）
-        const duration: number = durationSeconds-1;
+        // const duration: number = durationSeconds-1;
+        const duration: number = durationSeconds;
         
          console.log("duration_log:"+ duration);
     }
