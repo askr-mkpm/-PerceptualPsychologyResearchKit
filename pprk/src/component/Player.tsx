@@ -85,7 +85,7 @@ const Player: React.FC = () =>
         let inputId: number = listId[cid];
         let value: any = videoList.find(({id}) => id === inputId)?.name;
         
-        console.log("inputid:"+listId[cid]);
+        console.log("inputid:"+listId[cid]);//最後はundifinedになる（リストがないので）
 
         //リストが終了したらurlを空にする
         if(cid == listId.length)
@@ -159,6 +159,33 @@ const Player: React.FC = () =>
 
         console.dir("downlist"+vectionDownList.length);
         console.dir("uplist"+vectionUpList.length);
+
+        //-----最後keyupなかったときの調整 動画の最後にkeyupを打つ
+
+        let vectionDownList_mod: ITiming[] = vectionDownList;
+        let vectionUpList_mod: ITiming[] = vectionUpList;
+
+        if(vectionDownList_mod.length > vectionUpList_mod.length)
+        {
+            let upValue_end: number = Number(durationSeconds);
+
+            // let uid = vectionUpList.length + 1;
+            let uid = vectionUpList_mod.length +1;
+
+            // setVectionUp([...vectionUpList, {lid: listId[controlId], cid: controlId, id: uid, timing: upValue_end }]);
+            vectionUpList_mod.push({lid: listId[controlId], cid: controlId, id: uid, timing: upValue_end });
+
+            // let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
+            let downList: ITiming[] = vectionUpList_mod.filter((v) => v.id <= uid);
+
+            // setVectionDown(downList);
+            vectionUpList_mod = downList;
+        }
+        
+        setVectionDown(vectionDownList_mod);
+        setVectionUp(vectionUpList_mod);
+        
+        //-------
 
         let cidKeyDownList: ITiming[] = vectionDownList.filter((v) => v.cid >= coid);
         let cidKeyUpList: ITiming[] = vectionUpList.filter((v) => v.cid >= coid);//coid番目の試行のkeydownuplistだけ抽出
