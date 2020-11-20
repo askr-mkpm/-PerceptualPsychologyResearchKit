@@ -68,6 +68,14 @@ const Player: React.FC = () =>
         
         console.log(cid);
         setVideoUrl(value);
+        alertPlayButton();
+    }
+
+    const alertPlayButton = () =>
+    {
+        alert("動画プレイヤーが起動します。 \n \n " 
+        +"再生の際はプレイヤー内の再生ボタンではなく、プレイヤー下の、青い[PLAY]ボタンをおしてください。\n \n "
+        +"誤ってプレイヤー内の再生ボタンを押してしまった場合、お手数ですが動画プレイヤーを起動しなおしてください。");
     }
 
     const handlePlayBool = (e: React.FormEvent<HTMLButtonElement>) => 
@@ -112,7 +120,7 @@ const Player: React.FC = () =>
 
     const alertInputInfomation = () =>
     {
-        alert("Please enter a subjective intensity");
+        alert("主観強度を入力して、青い[INPUT]ボタンをおしてください。");
     }
 
     const handlePlayedSeconds = (state: any) =>
@@ -228,6 +236,8 @@ const Player: React.FC = () =>
     {
         e.preventDefault();
         calcVectionDuration();
+        
+        alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
     }
 
     const handleDurationLog =  (durationSeconds: any) =>
