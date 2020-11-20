@@ -65,9 +65,14 @@ const InputList: React.FC = () =>
         setRepeatNum(value);
     }
 
+    const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
+    {
+        e.preventDefault();
+    }
+
     return(
         <div>
-            <form className={classes.urlInput} noValidate autoComplete="off">
+            <form className={classes.urlInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
                 <TextField 
                     id="outlined-basic"
                     label="URL"
@@ -87,7 +92,7 @@ const InputList: React.FC = () =>
 
             {videoList.map((item: IList) => <p>{item.name}</p>)}
 
-            <form className={classes.repNum} noValidate autoComplete="off">
+            <form className={classes.repNum} noValidate autoComplete="off" onSubmit={cancelReturn}>
                 <TextField
                     id="filled-number"
                     label="RepeatNum"
