@@ -1,8 +1,11 @@
 import React, { useContext, createContext }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import ReactPlayer from 'react-player'
 import * as Scroll from 'react-scroll';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
 
 import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
@@ -15,9 +18,28 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: theme.spacing(1),
             },
+        },
+        sliderInput: {
+            '& > *': {
+            margin: theme.spacing(1),
+            width: '25ch',
+            },
+        },
+        vectionSlider: {
+            '& > *': {
+                margin: theme.spacing(1),
+                width: 300,
+            },
+        },
+        multilineColor:{
+            color:'white'
         }
     }),
 );
+
+function valuetext(value: number) {
+    return `${value}°C`;
+}
 
 interface IList {
     id: number;
@@ -37,6 +59,20 @@ interface IDuration {
     value: number;
 }
 
+interface ISliderName
+{
+    label: string;
+    id: number;
+}
+
+interface ISlider {
+    cid: number; //試行番号
+    lid: number; //条件番号
+    // id: number;  //主観強度の種類
+    label: string; //スライダーの名前
+    value: number; //主観強度の値
+}
+
 
 export const ControlIdContext = createContext(0);
 export const PlayedSecondsContext = createContext(0);
@@ -54,8 +90,27 @@ const Player: React.FC = () =>
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
     const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
 
+    const [inputSlider, setInputSlider] = React.useState<string>("");
+    const [vectionSliderList, setVectionSliderList] = React.useState<ISliderName[]>([]);
+
     const listId: number[] = useContext(ListIdContext);
     const videoList: IList[] = useContext(VideoListContext);
+
+
+    const handleInputSlider = (e: React.ChangeEvent<HTMLInputElement>) =>
+    {
+        // e.stopPropagation();
+        e.preventDefault();
+        setInputSlider(e.target.value);
+    }
+
+    const addInputSliderToList = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        e.preventDefault();
+
+        setVectionSliderList([...vectionSliderList, {label: inputSlider , id: vectionSliderList.length + 1 }]);
+        setInputSlider("");
+    }
 
     const initialSetUrlToRender = (e: React.FormEvent<HTMLButtonElement>) => 
     {
@@ -252,8 +307,59 @@ const Player: React.FC = () =>
          console.log("duration_log:"+ duration);
     }
 
+    const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
+    {
+        e.preventDefault();
+    }
+
+    const handleSliderTest = () =>
+    {
+        //下のどちらもできない stateはループのなかでよびだせない
+
+        // for(let i=0; i < vectionSliderList.length; i++)
+        // {
+        //     let [sliderValue, setSliderValue] = React.useState<number>(0);
+        //     console.log("tesss");
+        // }
+
+        // vectionSliderList.map(()=>{
+        //     let [sliderValue, setSliderValue] = React.useState<number>(0);
+        //     console.log("tesss");
+        // })
+        
+    }
+
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
+
+            <form className={classes.sliderInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
+                <TextField 
+                    id="outlined-basic"
+                    label="Subjective Intensity Label"
+                    variant="outlined" 
+                    value={inputSlider}
+                    onChange={handleInputSlider}
+                    inputProps={{className: classes.multilineColor }}
+                    InputLabelProps={{ className: classes.multilineColor }}
+                />
+            </form>
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="secondary" onClick={addInputSliderToList}>
+                    Add Subjective Intensity To List
+                </Button>
+            </div>
+            
+            {vectionSliderList.map((label: ISliderName) => 
+                <p>{label.label}</p>
+            )}
+
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="primary" onClick={handleSliderTest}>
+                    slidertest
+                </Button>
+            </div>
+
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
                     LaunchPlayer
@@ -280,6 +386,25 @@ const Player: React.FC = () =>
                     play
                 </Button>
             </div>
+
+            {vectionSliderList.map((label: ISliderName) => 
+                <div className={classes.vectionSlider}>
+                    <Typography id="vectionSlider" gutterBottom>
+                        {label.label}
+                    </Typography>
+                    <Slider
+                    defaultValue={50}
+                    getAriaValueText={valuetext}
+                    aria-labelledby="vectionSlider"
+                    valueLabelDisplay="auto"
+                    step={1}
+                    marks
+                    min={0}
+                    max={100}
+                    // value={label.id}
+                    />
+                </div>
+            )}
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handleContinue}>
