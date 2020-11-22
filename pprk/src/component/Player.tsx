@@ -11,6 +11,7 @@ import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
 
 import KeyInput from './KeyInput';
+import VectionSlider from './VectionSlider';
 
 import ReactExport from "react-data-export";
 const ExcelFile = ReactExport.ExcelFile;
@@ -81,6 +82,9 @@ interface ISlider {
 
 export const ControlIdContext = createContext(0);
 export const PlayedSecondsContext = createContext(0);
+export const VectionDownListContext = createContext([] as ITiming[]);
+export const VectionUpListContext = createContext([] as ITiming[]);
+export const DurationSecondsContext = createContext(0);
 
 const Player: React.FC = () =>
 {
@@ -95,29 +99,29 @@ const Player: React.FC = () =>
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
     const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
 
-    const [inputSlider, setInputSlider] = React.useState<string>("");
-    const [vectionSliderList, setVectionSliderList] = React.useState<ISliderName[]>([]);
-    const [sliderValue, setSliderValue] = React.useState<number>(50);
-    const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
+    // const [inputSlider, setInputSlider] = React.useState<string>("");
+    // const [vectionSliderList, setVectionSliderList] = React.useState<ISliderName[]>([]);
+    // const [sliderValue, setSliderValue] = React.useState<number>(50);
+    // const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
 
     const listId: number[] = useContext(ListIdContext);
     const videoList: IList[] = useContext(VideoListContext);
 
 
-    const handleInputSlider = (e: React.ChangeEvent<HTMLInputElement>) =>
-    {
-        // e.stopPropagation();
-        e.preventDefault();
-        setInputSlider(e.target.value);
-    }
+    // const handleInputSlider = (e: React.ChangeEvent<HTMLInputElement>) =>
+    // {
+    //     // e.stopPropagation();
+    //     e.preventDefault();
+    //     setInputSlider(e.target.value);
+    // }
 
-    const addInputSliderToList = (e: React.FormEvent<HTMLButtonElement>) => 
-    {
-        e.preventDefault();
+    // const addInputSliderToList = (e: React.FormEvent<HTMLButtonElement>) => 
+    // {
+    //     e.preventDefault();
 
-        setVectionSliderList([...vectionSliderList, {label: inputSlider , id: vectionSliderList.length + 1 }]);
-        setInputSlider("");
-    }
+    //     setVectionSliderList([...vectionSliderList, {label: inputSlider , id: vectionSliderList.length + 1 }]);
+    //     setInputSlider("");
+    // }
 
     const initialSetUrlToRender = (e: React.FormEvent<HTMLButtonElement>) => 
     {
@@ -294,23 +298,24 @@ const Player: React.FC = () =>
         //controlId-1はさきにincrementIDがはしっちゃっててその調整あとでちゃんとシュッとするように
     }
 
-    const addSliderValueToList = () =>
-    {
-        let coid: number = controlId-1;
-        let sliderLabel: string = "test(notState)";
-        setVectionSliderValueList([...vectionSliderValueList, {
-                cid: coid, lid: listId[coid], label: sliderLabel, value: sliderValue}]);
-        // console.log(sliderValue);
-    }
+    // const addSliderValueToList = () =>
+    // {
+    //     let coid: number = controlId-1;
+    //     let sliderLabel: string = "test(notState)";
+    //     setVectionSliderValueList([...vectionSliderValueList, {
+    //             cid: coid, lid: listId[coid], label: sliderLabel, value: sliderValue}]);
+    //     // console.log(sliderValue);
+    // }
 
-    const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>
-    {
-        e.preventDefault();
-        calcVectionDuration();
-        addSliderValueToList();
+    
+    // const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>
+    // {
+    //     e.preventDefault();
+    //     calcVectionDuration();
+    //     addSliderValueToList();
         
-        alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
-    }
+    //     alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
+    // }
 
     const handleDurationLog =  (durationSeconds: any) =>
     {
@@ -345,17 +350,17 @@ const Player: React.FC = () =>
         // })
     }
 
-    const handleSliderValue = (event: any, newValue: number | number[]) =>
-    {
-        setSliderValue(newValue as number);
-        // console.log(sliderValue);
-    }
+    // const handleSliderValue = (event: any, newValue: number | number[]) =>
+    // {
+    //     setSliderValue(newValue as number);
+    //     // console.log(sliderValue);
+    // }
 
 
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
 
-            <form className={classes.sliderInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
+            {/* <form className={classes.sliderInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
                 <TextField 
                     id="outlined-basic"
                     label="Subjective Intensity Label"
@@ -375,7 +380,19 @@ const Player: React.FC = () =>
             
             {vectionSliderList.map((label: ISliderName) => 
                 <p>{label.label}</p>
-            )}
+            )} */}
+
+            <ControlIdContext.Provider value={controlId}>
+            <PlayedSecondsContext.Provider value={playedSeconds}>
+            <VectionDownListContext.Provider value={vectionDownList}>
+            <VectionUpListContext.Provider value={vectionUpList}>
+            <DurationSecondsContext.Provider value={durationSeconds}>
+                <VectionSlider />
+            </DurationSecondsContext.Provider>
+            </VectionUpListContext.Provider>
+            </VectionDownListContext.Provider>
+            </PlayedSecondsContext.Provider>
+            </ControlIdContext.Provider>
 
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
@@ -415,7 +432,7 @@ const Player: React.FC = () =>
                 </Button>
             </div>
 
-            {vectionSliderList.map((label: ISliderName) => 
+            {/* {vectionSliderList.map((label: ISliderName) => 
                 <div className={classes.vectionSlider}>
                     <Typography id="vectionSlider" gutterBottom>
                         {label.label}
@@ -433,26 +450,26 @@ const Player: React.FC = () =>
                     onChange={handleSliderValue}
                     />
                 </div>
-            )}
+            )} */}
 
-            <div className={classes.stdButton}>
+            {/* <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={handleContinue}>
                     input
                 </Button>
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
                 <ExcelFile>
                     <ExcelSheet data={vectionDownList} name="VectionDownList">
                         <ExcelColumn label="試行番号" value="cid"/>
                         <ExcelColumn label="条件番号" value="lid"/>
-                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="id" value="id"/>
                         <ExcelColumn label="潜時(down)(sec)" value="timing"/>
                     </ExcelSheet>
                     <ExcelSheet data={vectionUpList} name="VectionUpList">
                         <ExcelColumn label="試行番号" value="cid"/>
                         <ExcelColumn label="条件番号" value="lid"/>
-                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="id" value="id"/>
                         <ExcelColumn label="潜時(up)(sec)" value="timing"/>
                     </ExcelSheet>
                     <ExcelSheet data={vectionDurationList} name="VectionDurationList">
@@ -460,14 +477,8 @@ const Player: React.FC = () =>
                         <ExcelColumn label="条件番号" value="lid"/>
                         <ExcelColumn label="持続時間" value="value"/>
                     </ExcelSheet>
-                    <ExcelSheet data={vectionSliderValueList} name="VectionSliderValueList">
-                        <ExcelColumn label="試行番号" value="cid"/>
-                        <ExcelColumn label="条件番号" value="lid"/>
-                        <ExcelColumn label="主観強度名" value="label"/>
-                        <ExcelColumn label="主観強度値" value="value"/>
-                    </ExcelSheet>
                 </ExcelFile>
-            </div>
+            </div> */}
 
         </div>
     )
