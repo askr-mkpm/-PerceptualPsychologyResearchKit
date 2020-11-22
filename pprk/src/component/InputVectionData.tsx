@@ -90,10 +90,10 @@ const InputVectionData: React.FC = () =>
             vectionUpList_mod.push({lid: listId[controlId], cid: controlId, id: uid, timing: upValue_end });
 
             // let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
-            let downList: ITiming[] = vectionUpList_mod.filter((v) => v.id <= uid);
+            let downList: ITiming[] = vectionDownList_mod.filter((v) => v.id <= uid);
 
             // setVectionDown(downList);
-            vectionUpList_mod = downList;
+            vectionDownList_mod = downList;
         }
         
         setVectionDown_mod(vectionDownList_mod);
