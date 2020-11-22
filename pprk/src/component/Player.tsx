@@ -12,6 +12,11 @@ import {ListIdContext} from './CreateListId';
 
 import KeyInput from './KeyInput';
 
+import ReactExport from "react-data-export";
+const ExcelFile = ReactExport.ExcelFile;
+const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
+const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         stdButton: {
@@ -373,12 +378,6 @@ const Player: React.FC = () =>
             )}
 
             <div className={classes.stdButton}>
-                <Button variant="contained" color="primary" onClick={handleSliderTest}>
-                    slidertest
-                </Button>
-            </div>
-
-            <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
                     LaunchPlayer
                 </Button>
@@ -431,11 +430,34 @@ const Player: React.FC = () =>
                 </Button>
             </div>
 
-            {/* <ControlIdContext.Provider value={controlId}>
-            <PlayedSecondsContext.Provider value={playedSeconds}>
-                <KeyInput />
-            </PlayedSecondsContext.Provider>
-            </ControlIdContext.Provider> */}
+            <div>
+                <ExcelFile>
+                    <ExcelSheet data={vectionDownList} name="VectionDownList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="潜時(down)(sec)" value="timing"/>
+                    </ExcelSheet>
+                    <ExcelSheet data={vectionUpList} name="VectionUpList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        {/* <ExcelColumn label="id" value="id"/> */}
+                        <ExcelColumn label="潜時(up)(sec)" value="timing"/>
+                    </ExcelSheet>
+                    <ExcelSheet data={vectionDurationList} name="VectionDurationList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        <ExcelColumn label="持続時間" value="value"/>
+                    </ExcelSheet>
+                    <ExcelSheet data={vectionSliderValueList} name="VectionSliderValueList">
+                        <ExcelColumn label="試行番号" value="cid"/>
+                        <ExcelColumn label="条件番号" value="lid"/>
+                        <ExcelColumn label="主観強度名" value="label"/>
+                        <ExcelColumn label="主観強度値" value="value"/>
+                    </ExcelSheet>
+                </ExcelFile>
+            </div>
+
         </div>
     )
 }
