@@ -92,6 +92,8 @@ const Player: React.FC = () =>
 
     const [inputSlider, setInputSlider] = React.useState<string>("");
     const [vectionSliderList, setVectionSliderList] = React.useState<ISliderName[]>([]);
+    const [sliderValue, setSliderValue] = React.useState<number>(50);
+    const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
 
     const listId: number[] = useContext(ListIdContext);
     const videoList: IList[] = useContext(VideoListContext);
@@ -287,10 +289,20 @@ const Player: React.FC = () =>
         //controlId-1はさきにincrementIDがはしっちゃっててその調整あとでちゃんとシュッとするように
     }
 
+    const addSliderValueToList = () =>
+    {
+        let coid: number = controlId-1;
+        let sliderLabel: string = "test(notState)";
+        setVectionSliderValueList([...vectionSliderValueList, {
+                cid: coid, lid: listId[coid], label: sliderLabel, value: sliderValue}]);
+        // console.log(sliderValue);
+    }
+
     const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>
     {
         e.preventDefault();
         calcVectionDuration();
+        addSliderValueToList();
         
         alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
     }
@@ -326,8 +338,14 @@ const Player: React.FC = () =>
         //     let [sliderValue, setSliderValue] = React.useState<number>(0);
         //     console.log("tesss");
         // })
-        
     }
+
+    const handleSliderValue = (event: any, newValue: number | number[]) =>
+    {
+        setSliderValue(newValue as number);
+        // console.log(sliderValue);
+    }
+
 
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
@@ -401,7 +419,8 @@ const Player: React.FC = () =>
                     marks
                     min={0}
                     max={100}
-                    // value={label.id}
+                    value={sliderValue}
+                    onChange={handleSliderValue}
                     />
                 </div>
             )}
