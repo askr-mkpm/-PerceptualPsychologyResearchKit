@@ -23,8 +23,13 @@ const ExpTitle: React.FC = () =>
 {
     const classes = useStyles();
 
+    const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
+    {
+        e.preventDefault();
+    }
+
     return (
-        <form className={classes.root} noValidate autoComplete="off">
+        <form className={classes.root} noValidate autoComplete="off" onSubmit={cancelReturn}>
             <TextField 
                 id="standard-basic" 
                 label="ExperimentTitle" 

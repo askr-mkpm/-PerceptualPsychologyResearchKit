@@ -2,8 +2,8 @@ import React, { useContext }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import {ListIdContext} from './CreateListId';
-import {ControlIdContext, PlayedSecondsContext} from './Player';
+import {ListIdContext} from '../CreateListId';
+import {ControlIdContext, PlayedSecondsContext} from '../Player';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
