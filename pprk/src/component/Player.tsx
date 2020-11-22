@@ -395,6 +395,17 @@ const Player: React.FC = () =>
                     onDuration={handleDurationLog}
                     width='100%'
                     height='100%'
+                    config={{
+                        youtube:{
+                            playerVars:{
+                                controls: 0,
+                                disablekb: 1,
+                                fs: 0,
+                                modestbranding: 1,
+                                rel: 0
+                            }
+                        }
+                    }}
                 />
             </div>
 
