@@ -11,7 +11,7 @@ import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
 import {ControlIdContext} from './Player';
 
-import KeyInput from './KeyInput';
+import KeyInput from './_old/KeyInput';
 
 import InputVectionData from './InputVectionData';
 

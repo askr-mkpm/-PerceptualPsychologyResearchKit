@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import ExpTitle from './component/ExpTitle';
+import ExpTitle from './component/_old/ExpTitle';
 import InputList from './component/InputList';
 
 function App() {

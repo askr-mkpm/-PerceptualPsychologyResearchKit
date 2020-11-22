@@ -1,14 +1,4 @@
-import React, { useContext, createContext }from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import ReactPlayer from 'react-player'
-import * as Scroll from 'react-scroll';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-
-import {VideoListContext} from './InputList';
-import {ListIdContext} from './CreateListId';
+import React, { useContext }from 'react';
 
 import {
     VectionDownList_modContext,
@@ -16,42 +6,10 @@ import {
     VectionUpList_modContext,
     VectionDurationListContext} from './InputVectionData';
 
-import KeyInput from './KeyInput';
-
 import ReactExport from "react-data-export";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        stdButton: {
-            '& > *': {
-                margin: theme.spacing(1),
-            },
-        },
-        sliderInput: {
-            '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch',
-            },
-        },
-        vectionSlider: {
-            '& > *': {
-                margin: theme.spacing(1),
-                width: 300,
-            },
-        },
-        multilineColor:{
-            color:'white'
-        }
-    }),
-);
-
-interface IList {
-    id: number;
-    name: string;
-}
 
 interface ITiming {
     id: number;//1試行内のid
@@ -64,12 +22,6 @@ interface IDuration {
     cid: number;//試行番号
     lid: number;//条件番号
     value: number;
-}
-
-interface ISliderName
-{
-    label: string;
-    id: number;
 }
 
 interface ISlider {

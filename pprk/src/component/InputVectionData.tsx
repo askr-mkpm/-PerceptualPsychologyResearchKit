@@ -1,29 +1,15 @@
 import React, { useContext, createContext }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import ReactPlayer from 'react-player'
-import * as Scroll from 'react-scroll';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
 
-import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
 import {ControlIdContext, 
     VectionDownListContext, 
     VectionUpListContext,
     DurationSecondsContext} from './Player';
-
 import {SliderValueContext} from './VectionSlider';
 
-import KeyInput from './KeyInput';
-import VectionSlider from './VectionSlider';
-
-import ReactExport from "react-data-export";
 import ExportData from './ExportData';
-const ExcelFile = ReactExport.ExcelFile;
-const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,33 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: theme.spacing(1),
             },
-        },
-        sliderInput: {
-            '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch',
-            },
-        },
-        vectionSlider: {
-            '& > *': {
-                margin: theme.spacing(1),
-                width: 300,
-            },
-        },
-        multilineColor:{
-            color:'white'
         }
     }),
 );
-
-function valuetext(value: number) {
-    return `${value}°C`;
-}
-
-interface IList {
-    id: number;
-    name: string;
-}
 
 interface ITiming {
     id: number;//1試行内のid
@@ -70,12 +32,6 @@ interface IDuration {
     cid: number;//試行番号
     lid: number;//条件番号
     value: number;
-}
-
-interface ISliderName
-{
-    label: string;
-    id: number;
 }
 
 interface ISlider {
@@ -193,7 +149,6 @@ const InputVectionData: React.FC = () =>
         
         alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
     }
-
 
     return(
         <div>
