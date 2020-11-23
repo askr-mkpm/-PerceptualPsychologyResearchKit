@@ -144,6 +144,7 @@ const Player: React.FC = () =>
             let did = vectionDownList.length + 1
             setVectionDown([...vectionDownList, {lid: listId[controlId] ,cid: controlId, id: did, timing: downValue }]);
             console.log("keydown"+downValue);
+            console.log("keydown_cid"+controlId);
         }
     }
 

@@ -87,7 +87,7 @@ const InputVectionData: React.FC = () =>
             let uid = vectionUpList_mod.length +1;
 
             // setVectionUp([...vectionUpList, {lid: listId[controlId], cid: controlId, id: uid, timing: upValue_end }]);
-            vectionUpList_mod.push({lid: listId[controlId], cid: controlId, id: uid, timing: upValue_end });
+            vectionUpList_mod.push({lid: listId[coid], cid: coid, id: uid, timing: upValue_end });
 
             // let downList: ITiming[] = vectionDownList.filter((v) => v.id <= uid);//keydownの連続分を削除したリストを作成
             let downList: ITiming[] = vectionDownList_mod.filter((v) => v.id <= uid);
@@ -98,20 +98,25 @@ const InputVectionData: React.FC = () =>
         
         setVectionDown_mod(vectionDownList_mod);
         setVectionUp_mod(vectionUpList_mod);
-        
+
+        console.log("down_mod"+vectionDownList_mod.length);
+        console.log("up_mod"+vectionUpList_mod.length);
+
         //-------
 
-        let cidKeyDownList: ITiming[] = vectionDownList.filter((v) => v.cid >= coid);
-        let cidKeyUpList: ITiming[] = vectionUpList.filter((v) => v.cid >= coid);//coid番目の試行のkeydownuplistだけ抽出
+        let cidKeyDownList: ITiming[] = vectionDownList_mod.filter((v) => v.cid >= coid);
+        let cidKeyUpList: ITiming[] = vectionUpList_mod.filter((v) => v.cid >= coid);//coid番目の試行のkeydownuplistだけ抽出
+
+        console.log("ciddownlist"+cidKeyDownList.length);
+        console.log("ciduplist"+cidKeyUpList.length);
 
         let preUpLength: number = 0;
         if(coid > 0)
         {
-            preUpLength = vectionUpList.filter((v) => v.cid < coid).length;//coid番目試行以前の配列の長さを取得
+            preUpLength = vectionUpList_mod.filter((v) => v.cid < coid).length;//coid番目試行以前の配列の長さを取得
         }
         
-        console.log("ciddownlist"+cidKeyDownList);
-        console.log("ciduplist"+cidKeyUpList);
+
 
         for(let i=0; i < cidKeyUpList.length; i++)
         {
