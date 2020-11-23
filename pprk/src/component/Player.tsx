@@ -97,12 +97,16 @@ const Player: React.FC = () =>
         }
 
         setPlayBool(false);
+        setPlayedSeconds(0);
+
         setVideoUrl(value);
     }
 
     const handleIncreControlId = () => 
     {
         // e.preventDefault();
+
+        // handlePlayFlagFalse();
 
         let coid: number = controlId+1;
         setControlId(coid);
