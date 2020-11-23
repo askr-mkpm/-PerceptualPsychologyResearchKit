@@ -184,7 +184,9 @@ const Player: React.FC = () =>
             <VectionDownListContext.Provider value={vectionDownList}>
             <VectionUpListContext.Provider value={vectionUpList}>
             <DurationSecondsContext.Provider value={durationSeconds}>
-                <VectionSlider />
+                <VectionSlider 
+                    setVectionDownProp = {setVectionDown}
+                    setVectionUpProp = {setVectionUp} />
             </DurationSecondsContext.Provider>
             </VectionUpListContext.Provider>
             </VectionDownListContext.Provider>

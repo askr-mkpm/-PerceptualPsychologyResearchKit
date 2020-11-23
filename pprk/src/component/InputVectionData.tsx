@@ -1,4 +1,4 @@
-import React, { useContext, createContext }from 'react';
+import React, { useContext, createContext,Dispatch, SetStateAction }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -42,12 +42,22 @@ interface ISlider {
     value: number; //主観強度の値
 }
 
+interface ITiming {
+    id: number;//1試行内のid
+    cid: number; //試行番号
+    lid: number; //条件番号
+    timing: number;
+}
+
 export const VectionDurationListContext = createContext([] as IDuration[]);
 export const VectionSliderValueListContext = createContext([] as ISlider[]);
 export const VectionUpList_modContext = createContext([] as ITiming[]);
 export const VectionDownList_modContext = createContext([] as ITiming[]);
 
-const InputVectionData: React.FC = () =>
+const InputVectionData: React.FC<{ 
+    setVectionDownProp: Dispatch<SetStateAction<ITiming[]>> 
+    setVectionUpProp: Dispatch<SetStateAction<ITiming[]>> 
+}> = ({setVectionDownProp, setVectionUpProp }) =>
 {
     const classes = useStyles();
     
@@ -98,6 +108,9 @@ const InputVectionData: React.FC = () =>
         
         setVectionDown_mod(vectionDownList_mod);
         setVectionUp_mod(vectionUpList_mod);
+
+        setVectionDownProp(vectionDownList_mod);
+        setVectionUpProp(vectionUpList_mod);
 
         console.log("down_mod"+vectionDownList_mod.length);
         console.log("up_mod"+vectionUpList_mod.length);

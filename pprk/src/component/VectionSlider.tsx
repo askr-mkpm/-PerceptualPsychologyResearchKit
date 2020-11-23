@@ -1,4 +1,4 @@
-import React, { useContext, createContext }from 'react';
+import React, { useContext, createContext,  Dispatch, SetStateAction }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -63,9 +63,20 @@ interface ISlider {
     value: number; //主観強度の値
 }
 
+interface ITiming {
+    id: number;//1試行内のid
+    cid: number; //試行番号
+    lid: number; //条件番号
+    timing: number;
+}
+
+
 export const SliderValueContext = createContext(0);
 
-const VectionSlider: React.FC = () =>
+const VectionSlider: React.FC<{ 
+    setVectionDownProp: Dispatch<SetStateAction<ITiming[]>> 
+    setVectionUpProp: Dispatch<SetStateAction<ITiming[]>> 
+}> = ({setVectionDownProp, setVectionUpProp }) =>
 {
     const classes = useStyles();
     const [inputSlider, setInputSlider] = React.useState<string>("");
@@ -156,7 +167,9 @@ const VectionSlider: React.FC = () =>
             )}
 
         <SliderValueContext.Provider value={sliderValue}>
-            <InputVectionData />
+            <InputVectionData 
+                setVectionDownProp={setVectionDownProp}
+                setVectionUpProp={setVectionUpProp}/>
         </SliderValueContext.Provider>
 
         </div>
