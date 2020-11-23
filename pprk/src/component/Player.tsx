@@ -111,6 +111,8 @@ const Player: React.FC = () =>
         let coid: number = controlId+1;
         setControlId(coid);
         console.log(coid);
+
+        setDurationSeconds(playedSeconds); //終了段階のplayedsecondsをdurationにいれる
         
         setVideoUrlFromList();
 
@@ -164,17 +166,17 @@ const Player: React.FC = () =>
         }
     }
 
-    const handleDurationLog =  (durationSeconds: any) =>
-    {
+    // const handleDuration =  () =>
+    // {
 
-        setDurationSeconds(durationSeconds);
+    //     setDurationSeconds(playedSeconds);
 
-        //初回で1秒おおくなってしまうので調整、ただし二回目以降は正確になる（謎の誤差がある）
-        // const duration: number = durationSeconds-1;
-        const duration: number = durationSeconds;
+    //     //初回で1秒おおくなってしまうので調整、ただし二回目以降は正確になる（謎の誤差がある）
+    //     // const duration: number = durationSeconds-1;
+    //     const duration: number = durationSeconds;
         
-         console.log("duration_log:"+ duration);
-    }
+    //      console.log("duration_log:"+ duration);
+    // }
 
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
@@ -208,7 +210,7 @@ const Player: React.FC = () =>
                     playing={playBool} 
                     onEnded={handleIncreControlId} 
                     onProgress={handlePlayedSeconds}
-                    onDuration={handleDurationLog}
+                    // onDuration={handleDurationLog}
                     width='100%'
                     height='100%'
                     config={{
