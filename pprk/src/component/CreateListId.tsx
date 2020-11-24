@@ -1,6 +1,7 @@
 import React, { useState, useContext, createContext }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {IList} from '../domain/entity';
 
 import Player from './Player';
 import {VideoListContext, RepeatNumContext} from './InputList';
@@ -27,11 +28,6 @@ const shuffleArray: any = (array: number[]) =>
         outArray[r] = tmp;
     }
     return outArray;
-}
-
-interface IList {
-    id: number;
-    name: string;
 }
 
 export const ListIdContext = createContext([] as number[]);

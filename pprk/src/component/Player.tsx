@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ReactPlayer from 'react-player'
 import * as Scroll from 'react-scroll';
+import {IList, ITiming} from '../domain/entity';
 
 import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
@@ -18,18 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-interface IList {
-    id: number;
-    name: string;
-}
-
-interface ITiming {
-    id: number;//1試行内のid
-    cid: number; //試行番号
-    lid: number; //条件番号
-    timing: number;
-}
 
 export const ControlIdContext = createContext(0);
 export const PlayedSecondsContext = createContext(0);
@@ -177,18 +166,6 @@ const Player: React.FC = () =>
             console.log("keyup"+upValue);
         }
     }
-
-    // const handleDuration =  () =>
-    // {
-
-    //     setDurationSeconds(playedSeconds);
-
-    //     //初回で1秒おおくなってしまうので調整、ただし二回目以降は正確になる（謎の誤差がある）
-    //     // const duration: number = durationSeconds-1;
-    //     const duration: number = durationSeconds;
-        
-    //      console.log("duration_log:"+ duration);
-    // }
 
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>

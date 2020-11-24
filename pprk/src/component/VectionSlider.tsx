@@ -2,24 +2,12 @@ import React, { useContext, createContext,  Dispatch, SetStateAction }from 'reac
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import ReactPlayer from 'react-player'
-import * as Scroll from 'react-scroll';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-
-import {VideoListContext} from './InputList';
+import {ISliderName, ISliderValue, ITiming} from '../domain/entity';
 import {ListIdContext} from './CreateListId';
 import {ControlIdContext} from './Player';
-
-import KeyInput from './_old/KeyInput';
-
 import InputVectionData from './InputVectionData';
-
-import ReactExport from "react-data-export";
-import { Label } from '@material-ui/icons';
-const ExcelFile = ReactExport.ExcelFile;
-const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
-const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -49,33 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
 function valuetext(value: number) {
     return `${value}°C`;
 }
-
-interface ISliderName
-{
-    label: string;
-    id: number;
-}
-
-interface ISlider {
-    cid: number; //試行番号
-    lid: number; //条件番号
-    // id: number;  //主観強度の種類
-    label: string; //スライダーの名前
-    value: number; //主観強度の値
-}
-
-interface ITiming {
-    id: number;//1試行内のid
-    cid: number; //試行番号
-    lid: number; //条件番号
-    timing: number;
-}　
-
-interface ISliderValue {
-    label: string;
-    value: number;
-}
-
 
 export const SliderValueContext = createContext([] as ISliderValue[]);
 export const SliderNameContext = createContext([] as ISliderName[]);
@@ -146,12 +107,6 @@ const VectionSlider: React.FC<{
                     </Button>
                 </div>
             </div>
-            
-            {/* <div>
-                {vectionSliderList.map((label: ISliderName) => 
-                    <p>{label.label}</p>
-                )}
-            </div> */}
 
             {vectionSliderList.map((label: ISliderName) => 
                 <div className={classes.vectionSlider}>

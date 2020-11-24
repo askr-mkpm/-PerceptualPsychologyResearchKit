@@ -1,6 +1,7 @@
 import React, { useContext, createContext,Dispatch, SetStateAction }from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {ISliderName, ITiming, IDuration, ISlider, ISliderValue} from '../domain/entity';
 
 import {ListIdContext} from './CreateListId';
 import {ControlIdContext, 
@@ -21,46 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
-
-interface ISliderName
-{
-    label: string;
-    id: number;
-}
-
-interface ITiming {
-    id: number;//1試行内のid
-    cid: number; //試行番号
-    lid: number; //条件番号
-    timing: number;
-}
-
-interface IDuration {
-    cid: number;//試行番号
-    lid: number;//条件番号
-    value: number;
-}
-
-interface ISlider {
-    cid: number; //試行番号
-    lid: number; //条件番号
-    // id: number;  //主観強度の種類
-    label: string; //スライダーの名前
-    value: number; //主観強度の値
-}
-
-interface ITiming {
-    id: number;//1試行内のid
-    cid: number; //試行番号
-    lid: number; //条件番号
-    timing: number;
-}
-
-interface ISliderValue {
-    label: string;
-    value: number;
-}
-
 
 export const VectionDurationListContext = createContext([] as IDuration[]);
 export const VectionSliderValueListContext = createContext([] as ISlider[]);

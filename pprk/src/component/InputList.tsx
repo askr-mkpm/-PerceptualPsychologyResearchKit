@@ -2,6 +2,7 @@ import React, { useState, useContext, createContext }from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import {IList} from '../domain/entity';
 
 import CreateListId from './CreateListId';
 
@@ -29,11 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
         },
     }),
 );
-
-interface IList {
-    id: number;
-    name: string;
-}
 
 export const VideoListContext = createContext([] as IList[]);
 export const RepeatNumContext = createContext(0);
