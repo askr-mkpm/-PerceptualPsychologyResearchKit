@@ -7,7 +7,7 @@ import {ControlIdContext,
     VectionDownListContext, 
     VectionUpListContext,
     DurationSecondsContext} from './Player';
-import {SliderValueContext} from './VectionSlider';
+import {SliderValueContext, SliderNameContext} from './VectionSlider';
 
 import ExportData from './ExportData';
 
@@ -20,6 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
+
+interface ISliderName
+{
+    label: string;
+    id: number;
+}
 
 interface ITiming {
     id: number;//1試行内のid
@@ -49,6 +55,12 @@ interface ITiming {
     timing: number;
 }
 
+interface ISliderValue {
+    label: string;
+    value: number;
+}
+
+
 export const VectionDurationListContext = createContext([] as IDuration[]);
 export const VectionSliderValueListContext = createContext([] as ISlider[]);
 export const VectionUpList_modContext = createContext([] as ITiming[]);
@@ -66,7 +78,8 @@ const InputVectionData: React.FC<{
     const vectionDownList: ITiming[] = useContext(VectionDownListContext);
     const vectionUpList: ITiming[] = useContext(VectionUpListContext);
     const durationSeconds: number = useContext(DurationSecondsContext);
-    const sliderValue: number = useContext(SliderValueContext);
+    const sliderValueList: ISliderValue[] = useContext(SliderValueContext);
+    const sliderNameList: ISliderName[] = useContext(SliderNameContext);
 
     const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
     const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
@@ -153,10 +166,23 @@ const InputVectionData: React.FC<{
     const addSliderValueToList = () =>
     {
         let coid: number = controlId-1;
-        let sliderLabel: string = "test(notState)";
-        setVectionSliderValueList([...vectionSliderValueList, {
-                cid: coid, lid: listId[coid], label: sliderLabel, value: sliderValue}]);
-        // console.log(sliderValue);
+        console.log(sliderValueList);
+        console.log(sliderNameList);
+
+        let _sliderList: ISlider[] = vectionSliderValueList;
+        let sliderValueList_raw = sliderValueList;
+
+        for(let i =0; i<sliderNameList.length;i++)
+        {
+            let _label = sliderNameList[i];
+            let _sliderLocalLabelList = sliderValueList_raw.filter((v) => v.label == _label.label);
+            let _sliderValue: ISliderValue = _sliderLocalLabelList[_sliderLocalLabelList.length-1]; 
+            _sliderList.push({cid: coid, lid: listId[coid], label: _sliderValue.label, value: _sliderValue.value});
+        }
+        console.log(_sliderList);
+        
+        setVectionSliderValueList(_sliderList);
+
     }
 
     const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>

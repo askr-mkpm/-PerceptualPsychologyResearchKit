@@ -16,6 +16,7 @@ import KeyInput from './_old/KeyInput';
 import InputVectionData from './InputVectionData';
 
 import ReactExport from "react-data-export";
+import { Label } from '@material-ui/icons';
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -68,10 +69,16 @@ interface ITiming {
     cid: number; //試行番号
     lid: number; //条件番号
     timing: number;
+}　
+
+interface ISliderValue {
+    label: string;
+    value: number;
 }
 
 
-export const SliderValueContext = createContext(0);
+export const SliderValueContext = createContext([] as ISliderValue[]);
+export const SliderNameContext = createContext([] as ISliderName[]);
 
 const VectionSlider: React.FC<{ 
     setVectionDownProp: Dispatch<SetStateAction<ITiming[]>> 
@@ -82,7 +89,7 @@ const VectionSlider: React.FC<{
     const [inputSlider, setInputSlider] = React.useState<string>("");
     const [vectionSliderList, setVectionSliderList] = React.useState<ISliderName[]>([]);
     const [sliderValue, setSliderValue] = React.useState<number>(50);
-    const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
+    const [sliderValueList, setSliderValueList] = React.useState<ISliderValue[]>([]);
 
     const listId: number[] = useContext(ListIdContext);
     const controlId: number = useContext(ControlIdContext);
@@ -102,19 +109,15 @@ const VectionSlider: React.FC<{
         setInputSlider("");
     }
 
-    const addSliderValueToList = () =>
-    {
-        let coid: number = controlId-1;
-        let sliderLabel: string = "test(notState)";
-        setVectionSliderValueList([...vectionSliderValueList, {
-                cid: coid, lid: listId[coid], label: sliderLabel, value: sliderValue}]);
-        // console.log(sliderValue);
-    }
-
     const handleSliderValue = (event: any, newValue: number | number[]) =>
     {
         setSliderValue(newValue as number);
-        // console.log(sliderValue);
+    }
+
+    const handleSliderLabel = (label: string) =>
+    {
+        setSliderValueList([...sliderValueList,{label: label, value: sliderValue}])
+        console.log(sliderValueList);
     }
 
     const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
@@ -162,14 +165,17 @@ const VectionSlider: React.FC<{
                     max={100}
                     value={sliderValue}
                     onChange={handleSliderValue}
+                    onChangeCommitted={()=>handleSliderLabel(label.label)}
                     />
                 </div>
             )}
 
-        <SliderValueContext.Provider value={sliderValue}>
+        <SliderValueContext.Provider value={sliderValueList}>
+        <SliderNameContext.Provider value={vectionSliderList}>
             <InputVectionData 
                 setVectionDownProp={setVectionDownProp}
                 setVectionUpProp={setVectionUpProp}/>
+        </SliderNameContext.Provider>
         </SliderValueContext.Provider>
 
         </div>
