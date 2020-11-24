@@ -59,6 +59,20 @@ const InputList: React.FC = () =>
             alert("urlを入力してから[ADD URL TO LIST]を押してください")
             return;
         } 
+        if(!url.match(/https/) && !url.match(/http/)){
+           alert("無効なリンクです")
+           return; 
+        }
+        if(videoList.length>0){
+            for(let i= 0; i < videoList.length; i++)
+            {
+                let vl = videoList[i].name;
+                if(url.includes(vl)){
+                    alert("リンクが重複しています");
+                    return;
+                }
+            }
+        }
 
         setVideolist([...videoList, { id: videoList.length + 1, name: inputUrl }]);
         setInpurUrl("");
