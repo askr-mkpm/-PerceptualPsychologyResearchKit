@@ -54,6 +54,11 @@ const InputList: React.FC = () =>
 
     const addUrlToList = (e: React.FormEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        let url: string = inputUrl;
+        if(url == ""){
+            alert("urlを入力してから[ADD URL TO LIST]を押してください")
+            return;
+        } 
 
         setVideolist([...videoList, { id: videoList.length + 1, name: inputUrl }]);
         setInpurUrl("");
