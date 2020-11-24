@@ -127,27 +127,31 @@ const VectionSlider: React.FC<{
 
     return(
         <div>
-            <form className={classes.sliderInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
-                <TextField 
-                    id="outlined-basic"
-                    label="Subjective Intensity Label"
-                    variant="outlined" 
-                    value={inputSlider}
-                    onChange={handleInputSlider}
-                    inputProps={{className: classes.multilineColor }}
-                    InputLabelProps={{ className: classes.multilineColor }}
-                />
-            </form>
+            <div style={{visibility: controlId <= 1 ?'visible' : 'hidden' }}>
+                <form className={classes.sliderInput} noValidate autoComplete="off" onSubmit={cancelReturn}>
+                    <TextField 
+                        id="outlined-basic"
+                        label="Subjective Intensity Label"
+                        variant="outlined" 
+                        value={inputSlider}
+                        onChange={handleInputSlider}
+                        inputProps={{className: classes.multilineColor }}
+                        InputLabelProps={{ className: classes.multilineColor }}
+                    />
+                </form>
 
-            <div className={classes.stdButton}>
-                <Button variant="contained" color="secondary" onClick={addInputSliderToList}>
-                    Add Subjective Intensity To List
-                </Button>
+                <div className={classes.stdButton}>
+                    <Button variant="contained" color="secondary" onClick={addInputSliderToList}>
+                        Add Subjective Intensity To List
+                    </Button>
+                </div>
             </div>
             
-            {vectionSliderList.map((label: ISliderName) => 
-                <p>{label.label}</p>
-            )}
+            {/* <div>
+                {vectionSliderList.map((label: ISliderName) => 
+                    <p>{label.label}</p>
+                )}
+            </div> */}
 
             {vectionSliderList.map((label: ISliderName) => 
                 <div className={classes.vectionSlider}>

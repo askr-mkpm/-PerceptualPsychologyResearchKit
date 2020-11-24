@@ -181,20 +181,6 @@ const Player: React.FC = () =>
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
 
-            <ControlIdContext.Provider value={controlId}>
-            <PlayedSecondsContext.Provider value={playedSeconds}>
-            <VectionDownListContext.Provider value={vectionDownList}>
-            <VectionUpListContext.Provider value={vectionUpList}>
-            <DurationSecondsContext.Provider value={durationSeconds}>
-                <VectionSlider 
-                    setVectionDownProp = {setVectionDown}
-                    setVectionUpProp = {setVectionUp} />
-            </DurationSecondsContext.Provider>
-            </VectionUpListContext.Provider>
-            </VectionDownListContext.Provider>
-            </PlayedSecondsContext.Provider>
-            </ControlIdContext.Provider>
-
             <div className={classes.stdButton}>
                 <Button variant="contained" color="primary" onClick={initialSetUrlToRender}>
                     LaunchPlayer
@@ -232,6 +218,20 @@ const Player: React.FC = () =>
                     play
                 </Button>
             </div>
+
+            <ControlIdContext.Provider value={controlId}>
+            <PlayedSecondsContext.Provider value={playedSeconds}>
+            <VectionDownListContext.Provider value={vectionDownList}>
+            <VectionUpListContext.Provider value={vectionUpList}>
+            <DurationSecondsContext.Provider value={durationSeconds}>
+                <VectionSlider 
+                    setVectionDownProp = {setVectionDown}
+                    setVectionUpProp = {setVectionUp} />
+            </DurationSecondsContext.Provider>
+            </VectionUpListContext.Provider>
+            </VectionDownListContext.Provider>
+            </PlayedSecondsContext.Provider>
+            </ControlIdContext.Provider>
 
         </div>
     )
