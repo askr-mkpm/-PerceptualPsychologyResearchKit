@@ -36,6 +36,7 @@ export const PlayedSecondsContext = createContext(0);
 export const VectionDownListContext = createContext([] as ITiming[]);
 export const VectionUpListContext = createContext([] as ITiming[]);
 export const DurationSecondsContext = createContext(0);
+export const VideoUrlContext = createContext("");
 
 const Player: React.FC = () =>
 {
@@ -59,6 +60,12 @@ const Player: React.FC = () =>
         let inputId: number = listId[cid];
         let value: any = videoList.find(({id}) => id === inputId)?.name;
 
+        if(listId.length <= 0)
+        {
+            alert("[CREATELIST]してください。");
+            return
+        }
+
         console.log("inputid:"+listId[cid]);
         
         console.log(cid);
@@ -75,6 +82,11 @@ const Player: React.FC = () =>
 
     const handlePlayBool = (e: React.FormEvent<HTMLButtonElement>) => 
     {
+        if(listId.length <= 0)
+        {
+            alert("[CREATELIST]してください。");
+            return;
+        }
         Scroll.scroller.scrollTo('player', {
             duration: 500,
             smooth: true
@@ -224,9 +236,11 @@ const Player: React.FC = () =>
             <VectionDownListContext.Provider value={vectionDownList}>
             <VectionUpListContext.Provider value={vectionUpList}>
             <DurationSecondsContext.Provider value={durationSeconds}>
+            <VideoUrlContext.Provider value={videoUrl}>
                 <VectionSlider 
                     setVectionDownProp = {setVectionDown}
                     setVectionUpProp = {setVectionUp} />
+            </VideoUrlContext.Provider>
             </DurationSecondsContext.Provider>
             </VectionUpListContext.Provider>
             </VectionDownListContext.Provider>

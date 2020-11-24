@@ -6,7 +6,8 @@ import {ListIdContext} from './CreateListId';
 import {ControlIdContext, 
     VectionDownListContext, 
     VectionUpListContext,
-    DurationSecondsContext} from './Player';
+    DurationSecondsContext,
+    VideoUrlContext} from './Player';
 import {SliderValueContext, SliderNameContext} from './VectionSlider';
 
 import ExportData from './ExportData';
@@ -80,6 +81,7 @@ const InputVectionData: React.FC<{
     const durationSeconds: number = useContext(DurationSecondsContext);
     const sliderValueList: ISliderValue[] = useContext(SliderValueContext);
     const sliderNameList: ISliderName[] = useContext(SliderNameContext);
+    const videoUrl: string = useContext(VideoUrlContext);
 
     const [vectionDurationList, setVectionDurationList] = React.useState<IDuration[]>([]);
     const [vectionSliderValueList, setVectionSliderValueList] = React.useState<ISlider[]>([]);
@@ -188,10 +190,23 @@ const InputVectionData: React.FC<{
     const handleContinue = (e: React.FormEvent<HTMLButtonElement>) =>
     {
         e.preventDefault();
+
+        if(controlId == 0)
+        {
+            alert("無効な入力です")
+            return;
+        }
+
         calcVectionDuration();
         addSliderValueToList();
+
+        if(videoUrl == "" && controlId > 0){
+            alert("最後の動画の潜時と主観強度が入力されました。[Download]を押して実験データを書き出しましょう。")
+        }else{
+            alert("潜時と主観強度が入力されました。[PLAY]を押して次の動画に進みましょう。")
+        }
         
-        alert("潜時と主観強度が入力されました。")//次の動画があるときはplayおしてねも追加する、ifで分岐してalert
+        
     }
 
     return(

@@ -48,8 +48,13 @@ const CreateListId: React.FC = () =>
     {
         e.preventDefault();
 
-        if(repeatNum == 0){
+        if(repeatNum <= 0){
             alert("RepaetNumを0より大きな値にしてください");
+            return;
+        }
+        if(videoList.length == 0)
+        {
+            alert("urlが入力されていません");
             return;
         }
 
@@ -72,7 +77,7 @@ const CreateListId: React.FC = () =>
             "繰り返し回数:" 
             + repeatNum 
             + " "
-            + "の動画リストを作成しました"
+            + "の動画リストを作成しました。[LAUNCHPLAYER]を押して動画プレイヤーを起動してください。"
         );
     }
 
