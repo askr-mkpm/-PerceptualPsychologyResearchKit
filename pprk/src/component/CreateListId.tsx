@@ -48,6 +48,11 @@ const CreateListId: React.FC = () =>
     {
         e.preventDefault();
 
+        if(repeatNum == 0){
+            alert("RepaetNumを0より大きな値にしてください");
+            return;
+        }
+
         let _listId: number[] = [];
         for(let i = 0; i < videoList.length; i++)
         {
