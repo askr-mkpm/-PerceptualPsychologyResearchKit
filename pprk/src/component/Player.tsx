@@ -5,6 +5,10 @@ import ReactPlayer from 'react-player'
 import * as Scroll from 'react-scroll';
 import {IList, ITiming} from '../domain/entity';
 
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+
 import {VideoListContext} from './InputList';
 import {ListIdContext} from './CreateListId';
 
@@ -16,6 +20,17 @@ const useStyles = makeStyles((theme: Theme) =>
             '& > *': {
                 margin: theme.spacing(1),
             },
+        },
+        modal: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        paper: {
+            backgroundColor: theme.palette.background.paper,
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
         }
     }),
 );
@@ -36,6 +51,7 @@ const Player: React.FC = () =>
     const [playedSeconds, setPlayedSeconds] = React.useState<number>(0);
     const [durationSeconds, setDurationSeconds] = React.useState<number>(0);
     const [pauseBool, setPauseBool] = React.useState<boolean>(false);
+    const [open, setOpen] = React.useState(false);
 
     const [vectionDownList, setVectionDown] = React.useState<ITiming[]>([]);
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
@@ -165,6 +181,7 @@ const Player: React.FC = () =>
             console.log("pause");
             setPauseBool(true);
             setPlayBool(false);
+            handleOpen();
             // alert("一時停止しました。再開する際は[PLAY]ボタンを押してください。")
         }
     }
@@ -184,6 +201,16 @@ const Player: React.FC = () =>
             console.log("keyup"+upValue);
         }
     }
+
+    const handleOpen = () => 
+    {
+        setOpen(true);
+    };
+    
+    const handleClose = () => 
+    {
+        setOpen(false);
+    };
 
     return (
         <div onKeyDown={handleVectionButtonDown_key} onKeyUp={handleVectionButtonUp_key}>
@@ -225,6 +252,26 @@ const Player: React.FC = () =>
                     play
                 </Button>
             </div>
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                <div className={classes.paper}>
+                    <h2 id="transition-modal-title">一時停止しました。</h2>
+            <p id="transition-modal-description">再開する際は[PLAY]ボタンを押してください。</p>
+                </div>
+                </Fade>
+            </Modal>
 
             <ControlIdContext.Provider value={controlId}>
             <PlayedSecondsContext.Provider value={playedSeconds}>
