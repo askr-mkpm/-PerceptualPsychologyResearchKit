@@ -35,6 +35,7 @@ const Player: React.FC = () =>
     const [controlId, setControlId] = React.useState<number>(0);
     const [playedSeconds, setPlayedSeconds] = React.useState<number>(0);
     const [durationSeconds, setDurationSeconds] = React.useState<number>(0);
+    const [pauseBool, setPauseBool] = React.useState<boolean>(false);
 
     const [vectionDownList, setVectionDown] = React.useState<ITiming[]>([]);
     const [vectionUpList, setVectionUp] = React.useState<ITiming[]>([]);
@@ -81,6 +82,7 @@ const Player: React.FC = () =>
             smooth: true
         })
         setPlayBool(true);
+        setPauseBool(false);
     }
 
     const setVideoUrlFromList = () =>
@@ -128,9 +130,12 @@ const Player: React.FC = () =>
     const handlePlayedSeconds = (state: any) =>
     {
         let ps: number = state.playedSeconds
-        if(playBool == false)
+        if(pauseBool == false)//一時停止でplayboolがfalseになったときにps=0の処理をさせない
         {
-            ps = 0;
+            if(playBool == false)
+            {
+                ps = 0;
+            }
         }
         setPlayedSeconds(ps);
         // console.log("seconds:"+playedSeconds);
@@ -140,14 +145,27 @@ const Player: React.FC = () =>
     {
         // e.preventDefault();
         e.stopPropagation();
-        const KEY_CODE = 68;//d
+        const KEY_CODE_D = 68;//d
+        const KEY_CODE_ESC = 27;//esc
+
         let downValue: number = Number(playedSeconds);
-        if(e.keyCode == KEY_CODE && playBool == true) //playboolの分岐: 動画再生されていないときのkeydownをふせぐ 
+
+        //潜時入力
+        if(e.keyCode == KEY_CODE_D && playBool == true) //playboolの分岐: 動画再生されていないときのkeydownをふせぐ 
         {
             let did = vectionDownList.length + 1
             setVectionDown([...vectionDownList, {lid: listId[controlId] ,cid: controlId, id: did, timing: downValue }]);
             console.log("keydown"+downValue);
             console.log("keydown_cid"+controlId);
+        }
+
+        //一時停止
+        if(e.keyCode == KEY_CODE_ESC ) //playboolの分岐: 動画再生されていないときのkeydownをふせぐ 
+        {
+            console.log("pause");
+            setPauseBool(true);
+            setPlayBool(false);
+            // alert("一時停止しました。再開する際は[PLAY]ボタンを押してください。")
         }
     }
 
