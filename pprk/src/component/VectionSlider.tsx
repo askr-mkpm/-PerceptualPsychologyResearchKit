@@ -65,6 +65,11 @@ const VectionSlider: React.FC<{
     const addInputSliderToList = (e: React.FormEvent<HTMLButtonElement>) => 
     {
         e.preventDefault();
+        if(inputSlider == "")
+        {
+            alert("主観強度名を入力してください");
+            return;
+        }
 
         setVectionSliderList([...vectionSliderList, {label: inputSlider , id: vectionSliderList.length + 1 }]);
         setInputSlider("");
