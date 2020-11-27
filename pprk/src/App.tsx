@@ -3,6 +3,7 @@ import './App.scss';
 
 import ExpTitle from './component/_old/ExpTitle';
 import InputList from './component/InputList';
+// import UploadData from './component/UploadData';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <ExpTitle />
             <InputList />
             {/* <VideoList /> */}
+            {/* <UploadData /> */}
           </div>
         </main>
       </div>

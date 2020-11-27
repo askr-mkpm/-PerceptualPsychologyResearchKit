@@ -119,6 +119,11 @@ const Player: React.FC = () =>
         setPlayedSeconds(0);
 
         setVideoUrl(value);
+
+        if(cid == listId.length)
+        {
+            console.log("動画の再生が終了しました。[Download]を押してデータをダウンロードしてください。");
+        }
     }
 
     const handleIncreControlId = () => 
