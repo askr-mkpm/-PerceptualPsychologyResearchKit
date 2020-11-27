@@ -62,7 +62,6 @@ const UploadData: React.FC = () =>
     //     contentType: 'application/vnd.ms-excel',
     //   };
       
-
       const uploadTask = storage.ref().child('data/' + _time).put(img)
       
       uploadTask.on(
