@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {IList} from '../domain/entity';
-import firebase, { storage } from "../firebase";
+import firebase, { storage} from "../firebase";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,24 +37,34 @@ const UploadData: React.FC = () =>
 
     const classes = useStyles();
 
-    const [image, setImage] = useState("");
+    const [file, setFile] = useState([]);
 
     const handleImage = (event: any) => {
       const image = event.target.files[0];
-      setImage(image);
+      setFile(image);
     };
 
     const onSubmit = (event: any) => 
     {
       event.preventDefault();
-      if (image === "") {
+      if (file === null) {
         console.log("ファイルが選択されていません");
       }
       
       // アップロード処理
       let _time = new Date();
-      let img: any = image;
-      const uploadTask = storage.ref().child('images/' + _time).put(img);
+      let img: any = file;
+      
+    //   let metadata = StorageMetadata()
+    //     metadata.contentType = "application/vnd.ms-excel"
+
+    // var metadata = {
+    //     contentType: 'application/vnd.ms-excel',
+    //   };
+      
+
+      const uploadTask = storage.ref().child('data/' + _time).put(img)
+      
       uploadTask.on(
         firebase.storage.TaskEvent.STATE_CHANGED,
         next,
