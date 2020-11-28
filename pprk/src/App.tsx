@@ -14,7 +14,7 @@ function App() {
       <div className="bg">
         <main>
           <div>
-            <ExpTitle />
+            {/* <ExpTitle /> */}
             <InputList />
             {/* <VideoList /> */}
             {/* <UploadData /> */}
