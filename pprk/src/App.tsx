@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        PerceptualPsychologyResearchKit(beta)
+        VectionResearchKit
       </header>
       <div className="bg">
         <main>
@@ -22,7 +22,7 @@ function App() {
         </main>
       </div>
       <footer>
-        copylight. null
+        copylight. Kakeru ITo, SenoLab
       </footer>
     </div>
   );
