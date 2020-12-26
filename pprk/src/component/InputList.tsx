@@ -97,13 +97,13 @@ const InputList: React.FC = () =>
                     inputProps={{className: classes.multilineColor }}
                     InputLabelProps={{ className: classes.multilineColor }}
                 />
-            </form>
 
-            <div className={classes.stdButton}>
-                <Button variant="contained" color="secondary" onClick={addUrlToList}>
+                <Button variant="contained" color="secondary" onClick={addUrlToList} className={classes.stdButton}>
                     Add Url To List
                 </Button>
-            </div>
+            </form>
+
+
 
             {videoList.map((item: IList) => <p>{item.name}</p>)}
 

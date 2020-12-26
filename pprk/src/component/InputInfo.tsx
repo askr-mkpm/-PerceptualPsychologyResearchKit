@@ -40,9 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
         selectEmpty: {
             marginTop: theme.spacing(2),
         },
-        inputLabel:{
-            color:'white'
-        }
     }),
 );
 
@@ -129,13 +126,13 @@ const InputInfo: React.FC = () =>
                 />
 
                 <FormControl　className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label" className={classes.inputLabel}>Gender</InputLabel>
+                    <InputLabel id="demo-simple-select-label" className={classes.multilineColor}>Gender</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={genderType}
                         onChange={handlegenderType}
-                        className={classes.inputLabel}
+                        className={classes.multilineColor}
                     >
                     <MenuItem value={"Male"}>Male</MenuItem>
                     <MenuItem value={"Female"}>Female</MenuItem>
@@ -159,7 +156,7 @@ const InputInfo: React.FC = () =>
             </form>
 
             <div className={classes.stdButton}>
-                <Button variant="contained" color="secondary" onClick={addInfo}>
+                <Button variant="contained" onClick={addInfo}>
                     Set Experiment Infomation
                 </Button>
             </div>

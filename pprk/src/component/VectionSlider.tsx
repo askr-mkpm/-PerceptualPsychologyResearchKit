@@ -109,13 +109,17 @@ const VectionSlider: React.FC<{
                         inputProps={{className: classes.multilineColor }}
                         InputLabelProps={{ className: classes.multilineColor }}
                     />
+
+                    <Button variant="contained"  color="secondary" onClick={addInputSliderToList} className={classes.stdButton}>
+                        Add Label To List
+                    </Button>
                 </form>
 
-                <div className={classes.stdButton}>
-                    <Button variant="contained" color="secondary" onClick={addInputSliderToList}>
+                {/* <div className={classes.stdButton}>
+                    <Button variant="contained" color="secondary" onClick={addInputSliderToList} className={classes.stdButton}>
                         Add Subjective Intensity To List
                     </Button>
-                </div>
+                </div> */}
             </div>
 
             {vectionSliderList.map((label: ISliderName) => 
