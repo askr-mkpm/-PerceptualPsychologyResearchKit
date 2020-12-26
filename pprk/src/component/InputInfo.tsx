@@ -36,10 +36,13 @@ const useStyles = makeStyles((theme: Theme) =>
         formControl: {
             margin: theme.spacing(1),
             minWidth: 180,
-          },
-          selectEmpty: {
+        },
+        selectEmpty: {
             marginTop: theme.spacing(2),
-          },
+        },
+        inputLabel:{
+            color:'white'
+        }
     }),
 );
 
@@ -126,12 +129,13 @@ const InputInfo: React.FC = () =>
                 />
 
                 <FormControl　className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                    <InputLabel id="demo-simple-select-label" className={classes.inputLabel}>Gender</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={genderType}
                         onChange={handlegenderType}
+                        className={classes.inputLabel}
                     >
                     <MenuItem value={"Male"}>Male</MenuItem>
                     <MenuItem value={"Female"}>Female</MenuItem>
