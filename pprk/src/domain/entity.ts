@@ -34,3 +34,11 @@ export interface IDuration {
     lid: number;//条件番号
     value: number;
 }
+
+export interface IInfo{
+    title: string; //実験タイトル
+    name: string; //被験者名
+    age: number; //年齢
+    gender: string; //性別
+    date: string; //日付と時間
+}
