@@ -72,6 +72,7 @@ const VectionSlider: React.FC<{
         }
 
         setVectionSliderList([...vectionSliderList, {label: inputSlider , id: vectionSliderList.length + 1 }]);
+        setSliderValueList([...sliderValueList,{label: inputSlider, value: 50}])
         setInputSlider("");
     }
 

@@ -152,7 +152,7 @@ const InputVectionData: React.FC<{
     {
         e.preventDefault();
 
-        if(controlId == 0)
+        if(controlId == 0 || sliderNameList.length == 0)
         {
             alert("無効な入力です")
             return;
