@@ -162,7 +162,7 @@ const InputVectionData: React.FC<{
         addSliderValueToList();
 
         if(videoUrl == "" && controlId > 0){
-            alert("最後の動画の潜時と主観強度が入力されました。[Download]を押して実験データを書き出しましょう。")
+            alert("最後の動画の潜時と主観強度が入力されました。[Download]を押して実験データを書き出しましょう。これにて実験は終了です。")
         }else{
             alert("潜時と主観強度が入力されました。[PLAY]を押して次の動画に進みましょう。")
         }
