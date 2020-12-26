@@ -17,7 +17,7 @@ function App() {
           <div>
             {/* <ExpTitle /> */}
             <InputInfo />
-            <InputList />
+            {/* <InputList /> */}
             {/* <VideoList /> */}
             {/* <UploadData /> */}
           </div>

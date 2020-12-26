@@ -1,11 +1,12 @@
 import React, { useContext }from 'react';
-import {ITiming, IDuration, ISlider} from '../domain/entity';
+import {ITiming, IDuration, ISlider, IInfo} from '../domain/entity';
 
 import {
     VectionDownList_modContext,
     VectionSliderValueListContext ,
     VectionUpList_modContext,
     VectionDurationListContext} from './InputVectionData';
+import {ExpInfoContext} from './InputInfo';
 
 import ReactExport from "react-data-export";
 const ExcelFile = ReactExport.ExcelFile;
@@ -18,10 +19,18 @@ const ExportData: React.FC = () =>
     const vectionUpList: ITiming[] = useContext(VectionUpList_modContext);
     const vectionDurationList: IDuration[] = useContext(VectionDurationListContext);
     const vectionSliderValueList : ISlider[] = useContext(VectionSliderValueListContext);
+    const expInfo: IInfo[] = useContext(ExpInfoContext);
 
     return(
         <div>
             <ExcelFile>
+                <ExcelSheet data={expInfo} name="ExperimentInfo">
+                    <ExcelColumn label="実験タイトル" value="title"/>
+                    <ExcelColumn label="被験者名" value="name"/>
+                    <ExcelColumn label="年齢" value="age"/>
+                    <ExcelColumn label="性別" value="gender"/>
+                    <ExcelColumn label="日付と時刻" value="date"/>
+                </ExcelSheet>
                 <ExcelSheet data={vectionDownList} name="VectionDownList">
                     <ExcelColumn label="試行番号" value="cid"/>
                     <ExcelColumn label="条件番号" value="lid"/>

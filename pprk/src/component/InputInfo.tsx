@@ -2,12 +2,13 @@ import React, { useState, createContext }from 'react';
 import TextField from '@material-ui/core/TextField';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {IList} from '../domain/entity';
+import {IInfo} from '../domain/entity';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
+import InputList from './InputList';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,8 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-// export const VideoListContext = createContext([] as IList[]);
-// export const RepeatNumContext = createContext(0);
+export const ExpInfoContext = createContext([] as IInfo[]);
 
 const InputInfo: React.FC = () =>
 {
@@ -51,7 +51,7 @@ const InputInfo: React.FC = () =>
     const [expTitleName, setExpTitleName] = useState<string>("");
     const [genderType, setgenderType] = useState<string>("");
     const [age, setAge] = useState<number>(0);
-    // const [repeatNum, setRepeatNum] = useState<number>(0);
+    const [expInfo, setExpInfo] = useState<IInfo[]>([]);
 
     const handleSubjectName = (e: React.ChangeEvent<HTMLInputElement>) =>
     {
@@ -78,6 +78,17 @@ const InputInfo: React.FC = () =>
     {
         const value: number = Number(event.target.value);
         setAge(value);
+    }
+
+    const addInfo = (e: React.FormEvent<HTMLButtonElement>) => 
+    {
+        e.preventDefault();
+
+        let _date: string = new Date().toString();
+
+        setExpInfo([...expInfo,{
+            title: expTitleName, name: subjectName, age: age,
+            gender: genderType, date: _date }]);
     }
 
     const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
@@ -142,7 +153,16 @@ const InputInfo: React.FC = () =>
                     onChange = {handleAge}
                 />
             </form>
+            
+            <div className={classes.stdButton}>
+                <Button variant="contained" color="secondary" onClick={addInfo}>
+                    Set Experiment Infomation
+                </Button>
+            </div>
 
+            <ExpInfoContext.Provider value={expInfo}>
+                <InputList />
+            </ExpInfoContext.Provider>
         </div>
     )
 }
