@@ -89,6 +89,9 @@ const InputInfo: React.FC = () =>
         setExpInfo([...expInfo,{
             title: expTitleName, name: subjectName, age: age,
             gender: genderType, date: _date }]);
+
+        alert("実験タイトル, 被験者情報が入力されました。\n"
+        +"入力された情報がサーバへ送信されることはありません。")
     }
 
     const cancelReturn = (e: React.FormEvent<HTMLFormElement>): void =>
