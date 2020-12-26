@@ -16,6 +16,7 @@ import ExportData from './ExportData';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         stdButton: {
+            marginBottom: theme.spacing(5),
             '& > *': {
                 margin: theme.spacing(1),
             },
