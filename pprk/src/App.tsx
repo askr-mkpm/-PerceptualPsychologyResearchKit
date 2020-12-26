@@ -3,6 +3,7 @@ import './App.scss';
 
 import ExpTitle from './component/_old/ExpTitle';
 import InputList from './component/InputList';
+import InputInfo from './component/InputInfo';
 // import UploadData from './component/UploadData';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <main>
           <div>
             {/* <ExpTitle /> */}
+            <InputInfo />
             <InputList />
             {/* <VideoList /> */}
             {/* <UploadData /> */}
