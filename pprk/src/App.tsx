@@ -22,7 +22,7 @@ function App() {
         </main>
       </div>
       <footer>
-        copylight. Kakeru ITo, SenoLab
+        copylight. Kakeru Ito, SenoLab
       </footer>
     </div>
   );
