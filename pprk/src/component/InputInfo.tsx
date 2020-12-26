@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         stdButton: {
+            marginBottom: theme.spacing(5),
             '& > *': {
                 margin: theme.spacing(1),
             },
@@ -123,10 +124,8 @@ const InputInfo: React.FC = () =>
                     inputProps={{className: classes.multilineColor }}
                     InputLabelProps={{ className: classes.multilineColor }}
                 />
-            </form>
-            
-            <form className={classes.formControl} noValidate autoComplete="off" onSubmit={cancelReturn}>
-                <FormControl>
+
+                <FormControl　className={classes.formControl}>
                     <InputLabel id="demo-simple-select-label">Gender</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -140,9 +139,7 @@ const InputInfo: React.FC = () =>
                     <MenuItem value={"Decline to state"}>Decline to state</MenuItem>
                     </Select>
                 </FormControl>
-            </form> 
-
-            <form className={classes.repNum} noValidate autoComplete="off" onSubmit={cancelReturn}>
+                
                 <TextField
                     id="filled-number"
                     label="Age"
@@ -156,7 +153,7 @@ const InputInfo: React.FC = () =>
                     onChange = {handleAge}
                 />
             </form>
-            
+
             <div className={classes.stdButton}>
                 <Button variant="contained" color="secondary" onClick={addInfo}>
                     Set Experiment Infomation
