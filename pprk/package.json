@@ -21,7 +21,7 @@
     "react-scroll": "^1.7.16",
     "typescript": "^3.7.5",
     "video-react": "^0.14.1",
-    "xlsx": "^0.16.2"
+    "xlsx": "^0.17.0"
   },
   "scripts": {
     "start": "react-scripts start",
